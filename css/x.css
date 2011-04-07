@@ -1,0 +1,44 @@
+#ct {
+margin:8px;
+}
+#src-name {
+font-family:arial,sans-serif;
+font-size:13px;
+}
+#code {
+-moz-background-clip:border;
+-moz-background-inline-policy:continuous;
+-moz-background-origin:padding;
+background:#F8F8F8 none repeat scroll 0 0;
+border-color:silver;
+border-style:solid;
+border-width:1px 1px 1px 8px;
+font-family:monospace;
+font-size:12px;
+margin:0 0 8px;
+padding:10px;
+position:relative;
+}
+#code ol {
+list-style-image:none;
+list-style-position:outside;
+list-style-type:decimal;
+margin:0 0 0 44px;
+}
+#code li {
+white-space:pre;
+}
+#code li:hover {
+-moz-background-clip:border;
+-moz-background-inline-policy:continuous;
+-moz-background-origin:padding;
+background:#E8E8E8 none repeat scroll 0 0;
+}
+#themect {
+position:absolute;
+right:9px;
+top:100px;
+}
+.adsense {
+margin:0 0 10px;
+}

@@ -1,0 +1,10 @@
+@charset "utf-8";
+/* CSS Document */
+.ceo-icon{background: transparent url(../images/icons/user_gray.png) 0 0 no-repeat !important;}
+		.vice-icon{background:transparent url(../images/icons/user_suit.png) 0 0 no-repeat !important;}
+		.manager-icon{background:transparent url(../images/icons/user_orange.png) 0 0 no-repeat !important;}
+		.hc-icon{background:transparent url(../images/icons/user_female.png) 0 0 no-repeat !important;}
+		.pm-icon{background:transparent url(../images/icons/user_red.png) 0 0 no-repeat !important;}
+		.developer-icon{background:transparent url(../images/icons/user.png) 0 0 no-repeat !important;}
+		.tester-icon{background:transparent url(../images/icons/user_green.png) 0 0 no-repeat !important;}
+

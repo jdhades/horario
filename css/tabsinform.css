@@ -1,0 +1,14 @@
+@charset "utf-8";
+/* CSS Document */
+ #tabsinform-win .x-panel-body, #tabsinform-win .x-tab-panel-body {
+ background:transparent;
+ }
+ .x-tab-with-icon .x-tab-right {
+ padding-left:6px;
+ }
+ .x-tab-with-icon .x-tab-left {
+ padding-right:2px;
+ }
+  
+/* eof */
+
