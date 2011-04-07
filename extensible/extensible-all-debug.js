@@ -1912,6 +1912,7 @@ Ext.ensible.cal.EventMappings = {
     Url:         {name: 'Url', mapping: 'url', type: 'string'},
     IsAllDay:    {name: 'IsAllDay', mapping: 'ad', type: 'boolean'},
     Reminder:    {name: 'Reminder', mapping: 'rem', type: 'string'}
+	
 };/**
  * @class Ext.ensible.cal.CalendarMappings
  * @extends Object
@@ -4411,7 +4412,7 @@ enableEditDetails: true
  * @param {Object} config The config object
  */
 Ext.ensible.cal.EventEditWindow = Ext.extend(Ext.Window, {
-    titleTextAdd: 'Add Event',
+    titleTextAdd: 'prueba',
     titleTextEdit: 'Edit Event',
     width: 600,
     border: true,
@@ -4421,11 +4422,11 @@ Ext.ensible.cal.EventEditWindow = Ext.extend(Ext.Window, {
     buttonAlign: 'left',
     labelWidth: 65,
     detailsLinkText: 'Edit Details...',
-    savingMessage: 'Saving changes...',
-    deletingMessage: 'Deleting event...',
-    saveButtonText: 'Save',
-    deleteButtonText: 'Delete',
-    cancelButtonText: 'Cancel',
+    savingMessage: 'Cambios Guardados...',
+    deletingMessage: 'Eliminado...',
+    saveButtonText: 'Salvar',
+    deleteButtonText: 'Eliminar',
+    cancelButtonText: 'Cancelar',
     titleLabelText: 'Title',
     datesLabelText: 'When',
     calendarLabelText: 'Calendar',
@@ -4507,12 +4508,105 @@ Ext.ensible.cal.EventEditWindow = Ext.extend(Ext.Window, {
             fieldLabel: this.titleLabelText,
             anchor: '100%'
         });
-        this.dateRangeField = new Ext.ensible.cal.DateRangeField({
+		
+	
+		this.dateRangeField = new Ext.ensible.cal.DateRangeField({
             anchor: '95%',
             fieldLabel: this.datesLabelText
         });
-        
-        var items = [this.titleField, this.dateRangeField];
+        /////////////
+this.combo1 = new Ext.form.ComboBox({
+	name:  Ext.ensible.cal.EventMappings.Title.name
+	
+	, fieldLabel: 'title'
+	// we need id to focus this field. See window::defaultButton
+	,id:'combo'
+    ,anchor: '100%'
+	// we want to submit id, not text
+	,valueField:'title'
+	//,hiddenName:'id'
+
+	// could be undefined as we use custom template
+	,displayField:'title'
+
+	// query all records on trigger click
+	,triggerAction:'all'
+
+	// minimum characters to start the search
+	,minChars:2
+
+	// do not allow arbitrary values
+	,forceSelection:true
+
+	// otherwise we will not receive key events 
+	,enableKeyEvents:true
+
+	// let's use paging combo
+	,pageSize:2
+
+	// make the drop down list resizable
+	,resizable:true
+
+	// we need wider list for paging toolbar
+	,minListWidth:240
+
+	// force user to fill something
+	,allowBlank:false
+
+	// store getting items from server
+	,store:new Ext.data.JsonStore({
+		 id:'id'
+		,root:'data'
+		,totalProperty:'total'
+		,fields:[
+			 {name:'id', type:'int'}
+			,{name:'title', type:'string'}
+//			,{name:'persFirstName', type:'string'}
+		]
+		,url:'php/request.php'
+		,baseParams:{
+			 cmd:'getData'
+			,objName:'Plazas'
+			,fields:'["id","title"]'
+		}
+	})
+
+	// concatenate last and first names
+	,tpl:'<tpl for="."><div class="x-combo-list-item">{title}</div></tpl>'
+
+	// listeners
+	,listeners:{
+		// sets raw value to concatenated last and first names
+		 select:function(combo, record, index) {
+			this.setRawValue(record.get('title'));
+		}
+
+		// repair raw value after blur
+		,blur:function() {
+			var val = this.getRawValue();
+			this.setRawValue.defer(1, this, [val]);
+		}
+
+		// set tooltip and validate 
+		,render:function() {
+			this.el.set(
+				{qtip:'Type at least ' + this.minChars + ' characters to search in last name'}
+			);
+			this.validate();
+		}
+
+	}
+
+	// label
+	
+});
+
+// eof
+
+		
+		/////////////////////
+		
+        var items = [this.combo1, this.dateRangeField];
         
         if(this.calendarStore){
             this.calendarField = new Ext.ensible.cal.CalendarCombo({

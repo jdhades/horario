@@ -48,7 +48,12 @@ Ext.onReady(function(){
         apiRoot = 'remote/php/app.php/events/';
     
     Ext.Msg.minWidth = 300;
-     
+     Ext.ensible.cal.EventMappings.combo = {
+    name: 'jean',
+    mapping: 'jean',
+    type: 'string'
+    };
+      Ext.ensible.cal.EventRecord.reconfigure();
     // Let's load the calendar store remotely also. All you have to do to get
     // color-coding is include this store with the CalendarPanel.
     var calendarStore = new Ext.data.JsonStore({

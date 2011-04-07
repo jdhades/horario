@@ -37,7 +37,7 @@ enableEditDetails: true
  * @param {Object} config The config object
  */
 Ext.ensible.cal.EventEditWindow = Ext.extend(Ext.Window, {
-    titleTextAdd: 'Add Event',
+    titleTextAdd: 'Añadir Horario - Manual',
     titleTextEdit: 'Edit Event',
     width: 600,
     border: true,
@@ -133,12 +133,18 @@ Ext.ensible.cal.EventEditWindow = Ext.extend(Ext.Window, {
             fieldLabel: this.titleLabelText,
             anchor: '100%'
         });
+		
+		this.titleField2 = new Ext.form.TextField({
+			name: 'jean'
+			,fieldLabel: jean
+			,anchor: '100%'
+			});
         this.dateRangeField = new Ext.ensible.cal.DateRangeField({
             anchor: '95%',
             fieldLabel: this.datesLabelText
         });
         
-        var items = [this.titleField, this.dateRangeField];
+        var items = [this.titleField, this.titleField2, this.dateRangeField];
         
         if(this.calendarStore){
             this.calendarField = new Ext.ensible.cal.CalendarCombo({
