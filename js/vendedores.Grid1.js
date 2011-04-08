@@ -1,7 +1,7 @@
 
 
 Ext.ns('vendedores', 'Ext.ux');
-Ext.BLANK_IMAGE_URL = 'ext-3.3.1/resources/images/default/s.gif';
+Ext.BLANK_IMAGE_URL = 'http://localhost/horario2/ext-3.3.1/resources/images/default/s.gif';
 Ext.state.Manager.setProvider(new Ext.state.CookieProvider);
 vendedores.version = 'Beta 2'
 
@@ -52,7 +52,7 @@ vendedores.Grid1 = Ext.extend(Ext.grid.EditorGridPanel, {
 					,totalProperty:'total'
 					,root:'data'
 					,fields:[
-                                   {name:'id',type:'int'}
+                   {name:'id',type:'int'}
 				   ,{name:'codigo',type:'string'}
 				   ,{name:'nombre',type:'string'}
 				   ,{name:'apellido',type:'string'}
@@ -166,7 +166,12 @@ vendedores.Grid1 = Ext.extend(Ext.grid.EditorGridPanel, {
 					});
 					this.store.modified = [];
 //					this.store.rejectChanges();
-				}
+			}
+				
+			},{
+				text:'Cerrar'
+				,inconCls:'icon-trash-closed'
+				,handler:function(){winVendedores.hide();}
 			}]
 			,tbar:[/*{
 				 text:'Agregar-GRID'
@@ -266,6 +271,7 @@ vendedores.Grid1 = Ext.extend(Ext.grid.EditorGridPanel, {
          			}
 		};
 		Ext.Ajax.request(o);
+		
 	} // eo function commitChanges
 	// }}}
 	// {{{

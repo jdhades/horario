@@ -107,21 +107,21 @@ Ext.onReady(function(){
                 layout: 'border',
                 renderTo: 'cal',
                 items: [{
-                    id: 'app-header',
-                    region: 'north',
-                    height: 60,
-                    border: false,
-                    items:[{
-		    region: 'south'
-		    ,id:'app-menu'
-		    ,el:'app-menu'
-		    ,border:false
-		    ,tbar:[{
-			    text:'Agregar Plazas'
-			    ,tooltip:'Agregar un registro al grid'
-			    ,iconCls:'icon-plus'
-			    ,id:'btn-add'
-			    ,handler:function(){winPlazas.show()}
+                    	 id: 'app-header',
+                    	 region: 'north',
+                    	 height: 60,
+                    	 border: false,
+				      	items:[{
+		   				 region: 'south'
+		    			,id:'app-menu'
+		    			,el:'app-menu'
+		    			,border:false
+		    			,tbar:[{
+			    			text:'Agregar Plazas'
+			  			   ,tooltip:'Agregar un registro al grid'
+			    		   ,iconCls:'icon-plus'
+			    		   ,id:'btn-add'
+			    		   ,handler:function(){winPlazas.show()}
 				//,listeners:{
 				//	click:{scope:this, fn:this.addRecord,buffer:200}
 				//}

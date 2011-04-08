@@ -1,11 +1,12 @@
      winPlazas = new Ext.Window({
-         title: 'Horarios'
-	,id:'win'
+         title: 'Plazas'
+	,id:'winPlazas'
         ,width:640
         ,height:480
 	// ,maximized:true
 		,border:false
 		,closable:true
+		,closeAction:'hide'
 		,layout:'border'
 		,items:[
 			{
@@ -33,13 +34,14 @@
     });
      
       winVendedores = new Ext.Window({
-         title: 'Horarios'
-	,id:'win'
+         title: 'Vendedores'
+	    ,id:'winVendedores'
         ,width:640
         ,height:480
 	// ,maximized:true
 		,border:false
 		,closable:true
+		,closeAction:'hide'
 		,layout:'border'
 		,items:[
 			{
