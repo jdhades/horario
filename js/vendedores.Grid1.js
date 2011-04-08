@@ -1,17 +1,17 @@
 
 
-Ext.ns('horarios', 'Ext.ux');
+Ext.ns('vendedores', 'Ext.ux');
 Ext.BLANK_IMAGE_URL = 'ext-3.3.1/resources/images/default/s.gif';
 Ext.state.Manager.setProvider(new Ext.state.CookieProvider);
-horarios.version = 'Beta 2'
+vendedores.version = 'Beta 2'
 
-horarios.Grid1 = Ext.extend(Ext.grid.EditorGridPanel, {
+vendedores.Grid1 = Ext.extend(Ext.grid.EditorGridPanel, {
 	 layout:'fit'
          ,id:'idgrid' 
 	,border:false
 	,stateful:false
-	,url:'php/request.php'
-	,objName:'Plazas'
+	,url:'php/requestVendedores.php'
+	,objName:'Vendedores'
 	,idName:'id'
 	// {{{
 	,initComponent:function() {
@@ -53,16 +53,19 @@ horarios.Grid1 = Ext.extend(Ext.grid.EditorGridPanel, {
 					,root:'data'
 					,fields:[
                                    {name:'id',type:'int'}
-				   ,{name:'title',type:'string'}
-				   ,{name:'color',type:'int'}
-				   ,{name:'hidden',type:'int'}
-			          
+				   ,{name:'codigo',type:'string'}
+				   ,{name:'nombre',type:'string'}
+				   ,{name:'apellido',type:'string'}
+				   ,{name:'direccion',type:'string'}
+				   ,{name:'telefono',type:'string'}
+				   ,{name:'email',type:'string'}
+				   
 				   
 				]
 				})
 				,proxy:new Ext.data.HttpProxy({url:this.url})
 				,baseParams:{cmd:'getData', objName:this.objName}
-				,sortInfo:{field:'title', direction:'ASC'}
+				,sortInfo:{field:'codigo', direction:'ASC'}
 				,remoteSort:true
 				,listeners:{
 					load:{scope:this, fn:function(store) {
@@ -87,27 +90,54 @@ horarios.Grid1 = Ext.extend(Ext.grid.EditorGridPanel, {
 			// {{{
 				,columns:[
                                   {
-				 header:'Nombre'
+				 header:'codigo'
 				//,id:'id-nombre'
-				,dataIndex:'title'
+				,dataIndex:'codigo'
 				,width:300
 				,sortable:true
 				,editor:new Ext.form.TextField({
 					allowBlank:false
 				})
 			},{
-				 header:'Color'
+				 header:'Nombre'
 				//,id:'id-direccion'
-				,dataIndex:'color'
+				,dataIndex:'nombre'
 				,width:200
 				,sortable:true
 				,editor:new Ext.form.TextField({
 					allowBlank:false
 				})
 			},{
-				 header:'Disponible'
+				 header:'Apellido'
+				//,id:'id-direccion'
+				,dataIndex:'apellido'
+				,width:200
+				,sortable:true
+				,editor:new Ext.form.TextField({
+					allowBlank:false
+				})
+			},{
+				 header:'Direccion'
+				//,id:'id-direccion'
+				,dataIndex:'direccion'
+				,width:400
+				,sortable:true
+				,editor:new Ext.form.TextField({
+					
+				})
+			},{
+				 header:'Telefono'
+				//,id:'id-direccion'
+				,dataIndex:'telefono'
+				,width:200
+				,sortable:true
+				,editor:new Ext.form.TextField({
+				    
+				})
+			},{
+				 header:'Email'
 				//,id:'id-telefonos'
-				,dataIndex:'hidden'
+				,dataIndex:'email'
 				,width:160
 				,sortable:true
 				,editor:new Ext.form.TextField({
@@ -165,13 +195,13 @@ horarios.Grid1 = Ext.extend(Ext.grid.EditorGridPanel, {
 		});
 
 		// call parent
-		horarios.Grid1.superclass.initComponent.apply(this, arguments);
+		vendedores.Grid1.superclass.initComponent.apply(this, arguments);
 	} // eo function initComponent
 	// }}}
 	// {{{
 	,onRender:function() {
 		// call parent
-		horarios.Grid1.superclass.onRender.apply(this, arguments);
+		vendedores.Grid1.superclass.onRender.apply(this, arguments);
 
 		// load store
 		this.store.load({params:{start:0,limit:10}});
@@ -293,7 +323,7 @@ horarios.Grid1 = Ext.extend(Ext.grid.EditorGridPanel, {
 	,deleteRecord:function(record) {
 		Ext.Msg.show({
 			 title:'Eliminar Registro?'
-			,msg:'Deseas eliminar este registro <b>' + record.get('title') + '</b><br/>no puedes reversarlo.'
+			,msg:'Deseas eliminar este registro <b>' + record.get('codigo') + '</b><br/>no puedes reversarlo.'
 			,icon:Ext.Msg.QUESTION
 			,buttons:Ext.Msg.YESNO
 			,scope:this
@@ -329,6 +359,6 @@ horarios.Grid1 = Ext.extend(Ext.grid.EditorGridPanel, {
 }); // eo extend
 
 // register xtype
-Ext.reg('horariosgrid3', horarios.Grid1);
+Ext.reg('vendedoresgrid1', vendedores.Grid1);
 
 // app entry point

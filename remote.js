@@ -9,50 +9,12 @@ Ext.onReady(function(){
     
      Ext.QuickTips.init();
    
-     var win = new Ext.Window({
-         title: 'Horarios'
-	,id:'win'
-        ,width:640
-        ,height:480
-	// ,maximized:true
-		,border:false
-		,closable:true
-		,layout:'border'
-		,items:[
-			{
-			  xtype:'panel'
-			  ,region:'north'
-			  ,id:'box'
-			  //,applyTo:'header'
-			  
-			},
-			{
-			 
-			 layout:'border'
-			,region:'center'
-			,border:false
-			,items:[{
-				 xtype:'horariosgrid3'
-				,id:'horariosgrid1'
-				,region:'center'
-				,title:'Ingresar Plazas'
-				,height:300
-				
-			}]
-		}]
-
-    });
-	
-
+ 
     var today = new Date().clearTime();
         apiRoot = 'remote/php/app.php/events/';
     
     Ext.Msg.minWidth = 300;
-     Ext.ensible.cal.EventMappings.combo = {
-    name: 'jean',
-    mapping: 'jean',
-    type: 'string'
-    };
+  
       Ext.ensible.cal.EventRecord.reconfigure();
     // Let's load the calendar store remotely also. All you have to do to get
     // color-coding is include this store with the CalendarPanel.
@@ -147,29 +109,37 @@ Ext.onReady(function(){
                 items: [{
                     id: 'app-header',
                     region: 'north',
-                    height: 35,
+                    height: 60,
                     border: false,
-                    contentEl: 'app-header-content'
+                    items:[{
+		    region: 'south'
+		    ,id:'app-menu'
+		    ,el:'app-menu'
+		    ,border:false
 		    ,tbar:[{
-			    text:'Agregar-GRID'
+			    text:'Agregar Plazas'
 			    ,tooltip:'Agregar un registro al grid'
 			    ,iconCls:'icon-plus'
 			    ,id:'btn-add'
-			    ,handler:function(){win.show()}
+			    ,handler:function(){winPlazas.show()}
 				//,listeners:{
 				//	click:{scope:this, fn:this.addRecord,buffer:200}
 				//}
 			},{
-				 text:'Agregar'
+				 text:'Agregar Vendedores'
 				,tooltip:'Agregar un registro con una forma'
 				,iconCls:'icon-form-add'
-				,listeners:{
-					click:{scope:this, buffer:200, fn:function(btn) {
-						formMaquinasAll.render(document.body);
-                                                //this.recordForm.show(this.addRecord(), btn.getEl());
-					}}
-				}
+				,handler:function(){winVendedores.show()}
+//				,listeners:{
+//					click:{scope:this, buffer:200, fn:function(btn) {
+//						formMaquinasAll.render(document.body);
+//                                                //this.recordForm.show(this.addRecord(), btn.getEl());
+//					}}
+//				}
 			}]
+		    
+		    }]
+		   ,contentEl: 'app-header-content'
                 },{
                     id: 'app-center',
                     title: '...', // will be updated to the current view's date range
