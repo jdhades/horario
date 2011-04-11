@@ -90,7 +90,7 @@ vendedores.Grid1 = Ext.extend(Ext.grid.EditorGridPanel, {
 			// {{{
 				,columns:[
                                   {
-				 header:'codigo'
+				 header:'Codigo'
 				//,id:'id-nombre'
 				,dataIndex:'codigo'
 				,width:300
@@ -366,5 +366,12 @@ vendedores.Grid1 = Ext.extend(Ext.grid.EditorGridPanel, {
 
 // register xtype
 Ext.reg('vendedoresgrid1', vendedores.Grid1);
-
+ rf = new Ext.ux.grid.RecordForm({
+		 formCt:'east-form'
+		,autoShow:true
+		,autoHide:false
+//		,showButtons:false
+		//,ignoreFields:{compID:true}
+		,formConfig:{autoHeight:false,border:true, frame:false, margins:'10 10 10 10'}
+	});
 // app entry point

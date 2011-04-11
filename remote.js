@@ -8,14 +8,15 @@ Ext.ns('horarios');
 Ext.onReady(function(){
     
      Ext.QuickTips.init();
-   
  
+
+ var newRecord = true;
     var today = new Date().clearTime();
         apiRoot = 'remote/php/app.php/events/';
     
     Ext.Msg.minWidth = 300;
   
-      Ext.ensible.cal.EventRecord.reconfigure();
+  
     // Let's load the calendar store remotely also. All you have to do to get
     // color-coding is include this store with the CalendarPanel.
     var calendarStore = new Ext.data.JsonStore({
@@ -41,8 +42,8 @@ Ext.onReady(function(){
 	//baseParams:{objName:'Horarios'},
         api: {
             read:    'php/requestHorario.php?cmd=getData', //apiRoot+'view',
-            create:  'remote/createContact.php',//apiRoot+'create',
-            update:  'remote/updateEventos.php',//update:  apiRoot+'update',
+            create:   'php/requestHorario.php?cmd=saveData&newRecord=true',//apiRoot+'create',
+	    update:  'remote/updateEventos.php',//update:  apiRoot+'update',
             destroy: apiRoot+'destroy'
         },
         listeners: {
@@ -66,7 +67,7 @@ Ext.onReady(function(){
     });
     
     var writer = new Ext.data.JsonWriter({
-        encode: true,
+      //  encode: true,
         writeAllFields: false
     });
     
@@ -121,7 +122,7 @@ Ext.onReady(function(){
 			  			   ,tooltip:'Agregar un registro al grid'
 			    		   ,iconCls:'icon-plus'
 			    		   ,id:'btn-add'
-			    		   ,handler:function(){winPlazas.show()}
+			    		   ,handler:function(){win2.show()}
 				//,listeners:{
 				//	click:{scope:this, fn:this.addRecord,buffer:200}
 				//}

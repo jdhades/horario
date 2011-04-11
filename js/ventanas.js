@@ -67,3 +67,40 @@
 		}]
 
     });
+      
+     
+	 win2 = new Ext.Window({
+		 id:'win2'
+		,title:'plazas'
+		,layout:'border'
+		,width:800
+		,height:400
+		,closable:true
+		,closeAction:'hide'
+		,maximizable:false
+		,border:false
+//		,stateful:false
+		,plugins:[new Ext.ux.menu.IconMenu({iconCls:'icon-grid'})]
+		,items:[{
+			 region:'center'
+			,id:'horariosgrid1'
+			,title:'Grid'
+		//	,stateful:false
+			,xtype:'horariosgrid3'
+			,autoScroll:true
+			,plugins:[rf]
+		},{
+			 region:'east'
+			,id:'east-form'
+			,title:'Form'
+			,stateful:false
+			,width:300
+			,split:true
+			,border:true
+			,frame:true
+			,collapsible:true
+			,layout:'fit'
+		}]
+	});
+
+//	win2.show();

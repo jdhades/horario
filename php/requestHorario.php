@@ -4,6 +4,7 @@
 require("../classes/csql.php");
 
 if(!isset($_REQUEST["cmd"])) {
+	//echo ($_REQUEST["cmd"]);
 	return;
 }
 
@@ -108,6 +109,18 @@ function getData($osql) {
 
 } // eo function getData
 // }}}
+function object2arraydd ($valor){
+	if (!(is_array($valor)|| is_object($valor))){
+		$dato = $valor;
+	}else{
+		foreach($valor as $key => $valor1){
+			$dato[$key] = object2array($valor1);
+		}
+	}
+	return $dato;
+}
+
+
 // {{{
 /**
   * saveData: saves data to table
@@ -119,12 +132,14 @@ function getData($osql) {
   */
 function saveData($osql) {
 	global $objects;
+	//$arreglo[]="";
+	$activo=$_REQUEST["newRecord"];
 	$params = $objects[$_REQUEST["objName"]];
 	unset($params["fields"]);
-
-	$params["data"] = json_decode($_REQUEST["data"]);
-	
-	$osql->output($osql->saveData($params));
+        $campo = json_decode($_REQUEST["data"]);
+        $params["data"] = array($campo);
+	//var_dump($params);
+	$osql->output($osql->saveData($params,$activo));
 
 } // eo function saveData
 // }}}

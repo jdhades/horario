@@ -10,6 +10,21 @@
  */
 
 // {{{
+
+function object2array ($valor){
+	if (!(is_array($valor)|| is_object($valor))){
+		$dato = $valor;
+	}else{
+		foreach($valor as $key => $valor1){
+			$dato[$key] = object2array($valor1);
+		}
+	}
+	return $dato;
+}
+
+
+
+
 /**
   * regexp: callback for sqlite REGEXP operator
   *
@@ -97,7 +112,7 @@ class csql {
 				
 				$dsn = 'mysql:dbname=prueba;host=localhost';
 				$user = 'root';
-				$password = 'pantera';
+				$password = '';
 
 				try {
 				   $odb = new PDO($dsn, $user, $password);
@@ -240,15 +255,13 @@ class csql {
 	public function insertRecord($params) {
 		// params to vars
 		extract($params);
-//echo "<PRE>";
-//	print_r($params);
-//	echo "</PRE>";
+
 		$o = new stdClass();
 		$o->success = false;
 
 		$a = "object" === gettype($data) ? get_object_vars($data) : $data;
 		unset($a["newRecord"]);
-		
+
 		
 //		if($idName) {
 //			unset($a[$idName]);
@@ -258,10 +271,11 @@ class csql {
 		array_walk($values, "quote_array", "'");
 
 		$sql = "insert into $table (" . implode(",", $fields) . ") values (" . implode(",", $values) . ")";
-          // echo $sql;
+        //  echo $sql;
 	    try {
 			$this->odb->exec($sql);
 			$o->success = true;
+			
 			$o->insertId = $this->odb->lastInsertId();
 		}
 		catch(PDOException $e) {
@@ -309,19 +323,17 @@ class csql {
 	  * @return    object either {success:true} or {success:false,error:message}
 	  * @param     array $params
 	  */
-	public function saveData($params) {
+	public function saveData($params,$newRecord) {
 		// params to vars
 		extract($params);
-//	echo "<PRE>";
-//	print_r($params);
-//	echo "</PRE>";
 		// return object
 		$o = new stdClass;
 		$o->success = false;
-
+               
 		if(!$table || !is_array($data) || !$idName) {
 			$o->error = "Table, data or idName is missing";
-			echo $idName;
+			var_dump($idName);
+	
 			return $o;
 		}
 
@@ -337,7 +349,7 @@ class csql {
 			$p["data"] = $orec;
 
 			// insert/update switch
-			if(isset($orec->newRecord) && $orec->newRecord ) {
+			if(isset($newRecord)) {
 				$result = $this->insertRecord($p);
 			}
 			else {
@@ -353,11 +365,17 @@ class csql {
 			}
 			else {
 				$o->success = true;
+				$o->messages = "se a ingresado el horario";
+			     	//array_push($p["data"] , array("id",$result->insertId));
+				$p["data"]->id = $result->insertId;
+				//var_dump($p["data"]);
+				$o->data = $p["data"];
+				
 			}
 
 			// handle insertId if any
 			if(isset($result->insertId)) {
-				$o->insertIds[] = $result->insertId;
+			//	$o->insertIds[] = $result->insertId;
 			}
 		} // eo record loop
 		
@@ -391,10 +409,7 @@ class csql {
 		}
 		$asets = array();
 		$where = "";
-	//	echo "<PRE>";
-	//print_r($data);
-	//echo "</PRE>";
-
+	
 		foreach($data as $field => $value) {
 			if($idName === $field) {
 				$where = " where $field = '$value'";
@@ -404,18 +419,13 @@ class csql {
 		array_push($asets, "$field=" . (is_null($value) ? "null" : "'$value'"));	
 		}
 		
-	//echo "<PRE>";
-	//print_r($asets);
-	//echo "</PRE>";
 		if(!$where) {
 			$o->error = "idName not found in data";
 			return $o;
 		}
 
 		$sql = "update $table set " . implode(",", $asets) . $where;
-          //      	echo "<PRE>";
-	//print_r($sql);
-	//echo "</PRE>";
+	
 		try {
 			$this->odb->exec($sql);
 			$o->success = true;
@@ -445,6 +455,7 @@ class csql {
 	  * @param     string $contentType
 	  */
 	public function output($o = null, $contentType = "application/json; charset=utf-8") {
+		
 		$o = $o ? $o : $this->o;
 		$buff = json_encode($o);
 		header("Content-Type: {$contentType}");

@@ -434,7 +434,7 @@ function(){
             el = el.firstChild;
         }
 //      If the result is multiple siblings, then encapsulate them into one fragment.
-        if(ns = el.nextSibling){
+        if(ns == el.nextSibling){
             var df = document.createDocumentFragment();
             while(el){
                 ns = el.nextSibling;
@@ -4412,8 +4412,8 @@ enableEditDetails: true
  * @param {Object} config The config object
  */
 Ext.ensible.cal.EventEditWindow = Ext.extend(Ext.Window, {
-    titleTextAdd: 'prueba',
-    titleTextEdit: 'Edit Event',
+    titleTextAdd: 'Horarios',
+    titleTextEdit: 'Editar Horario',
     width: 600,
     border: true,
     closeAction: 'hide',

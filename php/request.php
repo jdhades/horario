@@ -122,8 +122,8 @@ function saveData($osql) {
 	unset($params["fields"]);
 
 	$params["data"] = json_decode($_REQUEST["data"]);
-	//var_dump($params);
-	$osql->output($osql->saveData($params));
+	var_dump($params);
+	//$osql->output($osql->saveData($params));
 
 } // eo function saveData
 // }}}
