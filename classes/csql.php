@@ -112,7 +112,7 @@ class csql {
 				
 				$dsn = 'mysql:dbname=prueba;host=localhost';
 				$user = 'root';
-				$password = '';
+				$password = 'pantera';
 
 				try {
 				   $odb = new PDO($dsn, $user, $password);
@@ -271,7 +271,7 @@ class csql {
 		array_walk($values, "quote_array", "'");
 
 		$sql = "insert into $table (" . implode(",", $fields) . ") values (" . implode(",", $values) . ")";
-        //  echo $sql;
+   //      echo $sql;
 	    try {
 			$this->odb->exec($sql);
 			$o->success = true;
@@ -288,16 +288,16 @@ class csql {
 
 
 	// }}}
-	public function DeleteRecord($valor,$tabla,$idName) {
+	public function DeleteRecord($params,$valor) {
 		// params to vars
-		//extract($params);
+		extract($params);
 //7echo "<PRE>";
 //	print_r($params);
 //	echo "</PRE>";
 		$o = new stdClass();
 		$o->success = false;
 
-		$sql = "DELETE FROM ". $tabla. " WHERE ".$idName." ='".$valor."'"; 
+		$sql = "DELETE FROM ". $table. " WHERE ".$idName." ='".$valor."'"; 
 //echo $sql;
 		try {
 			$this->odb->exec($sql);
@@ -309,7 +309,7 @@ class csql {
 		}
 
 		return $o;
-
+ 
 	} // eo function delete
 
 
@@ -323,7 +323,75 @@ class csql {
 	  * @return    object either {success:true} or {success:false,error:message}
 	  * @param     array $params
 	  */
-	public function saveData($params,$newRecord) {
+	public function saveDataHorario($params,$newRecord) {
+		// params to vars
+		extract($params);
+		// return object
+		$o = new stdClass;
+		$o->success = false;
+               
+		if(!$table || !is_array($data) || !$idName) {
+			$o->error = "Table, data or idName is missing";
+			var_dump($idName);
+	
+			return $o;
+		}
+//var_dump($newRecord);
+		// record loop
+		$p = array(
+			 "table"=>$table
+			 ,"idName"=>$idName
+		);
+	
+		$this->odb->exec("begin transaction");
+        foreach($data as $orec) {
+			$p["data"] = $orec;
+
+			// insert/update switch
+			if(isset($newRecord)) {
+				//echo 'pasa por aqui';
+				$result = $this->insertRecord($p);
+			}
+			else {
+				
+				$result = $this->updateRecord($p);
+			}
+
+			// handle error
+			if(true !== $result->success) {
+				$o->success = false;
+				$o->error = $result->error;
+				$this->odb->exec("rollback");
+				return $o;
+			}
+			else {
+				$o->success = true;
+				$o->messages = "se a ingresado el horario";
+			    $p["data"]->id = $result->insertId;
+				$o->data = $p["data"];
+				
+			}
+
+			
+		} // eo record loop
+		
+		$this->odb->exec("commit");
+		return $o;
+	} // eo function saveData
+	// }}}
+	// {{{
+
+	// {{{
+	/**
+	  * saveData: saves data (updates or inserts)
+	  *
+	  * @author    Ing. Jozef Sakáloš <jsakalos@aariadne.com>
+	  * @date      01. April 2008
+	  * @access    public
+	  * @return    object either {success:true} or {success:false,error:message}
+	  * @param     array $params
+	  */
+	public function saveData($params) {
 		// params to vars
 		extract($params);
 		// return object
@@ -343,16 +411,33 @@ class csql {
 			 ,"idName"=>$idName
 		);
 
+	    echo "aqui esta este";
+		$cod = $p["codigo"];
+		var_dump($p["codigo"]); 
+		 var_dump($cod);
+		if ( $table == 'Vendedores'){
+		
+		$count = $dbh->exec("SELECT codigo FROM vendedore WHERE codigo = '".$cod."'");
+		
+		 if ($count > 0){
+			   $o->success = false;
+				$o->error = "Codigo Repetido";
+				return $o;
+
+			 }
+		}
+
 		$this->odb->exec("begin transaction");
 
 		foreach($data as $orec) {
 			$p["data"] = $orec;
 
 			// insert/update switch
-			if(isset($newRecord)) {
+			if(isset($orec->newRecord) && $orec->newRecord) {
 				$result = $this->insertRecord($p);
 			}
 			else {
+			//	echo "pasara por aqui ahora";
 				$result = $this->updateRecord($p);
 			}
 
@@ -365,23 +450,21 @@ class csql {
 			}
 			else {
 				$o->success = true;
-				$o->messages = "se a ingresado el horario";
-			     	//array_push($p["data"] , array("id",$result->insertId));
-				$p["data"]->id = $result->insertId;
-				//var_dump($p["data"]);
-				$o->data = $p["data"];
 				
 			}
 
 			// handle insertId if any
 			if(isset($result->insertId)) {
-			//	$o->insertIds[] = $result->insertId;
+				$o->insertIds[] = $result->insertId;
 			}
 		} // eo record loop
 		
 		$this->odb->exec("commit");
 		return $o;
-	} // eo function saveData
+	} 
+	
+	
+	// eo function saveData
 	// }}}
 	// {{{
 	/**
@@ -429,6 +512,9 @@ class csql {
 		try {
 			$this->odb->exec($sql);
 			$o->success = true;
+		//	$o->messages = "se a ingresado el horario";
+		  //  $p["data"]->id = $result->insertId;
+		// 	$o->data = $p["data"];
 		}
 		catch(PDOException $e) {
 			$o->error = "$e";

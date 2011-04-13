@@ -101,8 +101,10 @@ horarios.Grid1 = Ext.extend(Ext.grid.EditorGridPanel, {
 				,dataIndex:'color'
 				,width:200
 				,sortable:true
+				
 				,editor:new Ext.form.TextField({
 					allowBlank:false
+					
 				})
 			},{
 				 header:'Disponible'
@@ -137,6 +139,10 @@ horarios.Grid1 = Ext.extend(Ext.grid.EditorGridPanel, {
 					this.store.modified = [];
 //					this.store.rejectChanges();
 				}
+			},{
+				text:'Cerrar'
+				,inconCls:'icon-trash-closed'
+				,handler:function(){App.calendarPanel.calendarStore.load();  win2.hide();}
 			}]
 			,tbar:[/*{
 				 text:'Agregar-GRID'

@@ -109,16 +109,6 @@ function getData($osql) {
 
 } // eo function getData
 // }}}
-function object2arraydd ($valor){
-	if (!(is_array($valor)|| is_object($valor))){
-		$dato = $valor;
-	}else{
-		foreach($valor as $key => $valor1){
-			$dato[$key] = object2array($valor1);
-		}
-	}
-	return $dato;
-}
 
 
 // {{{
@@ -132,14 +122,16 @@ function object2arraydd ($valor){
   */
 function saveData($osql) {
 	global $objects;
-	//$arreglo[]="";
+	
 	$activo=$_REQUEST["newRecord"];
 	$params = $objects[$_REQUEST["objName"]];
 	unset($params["fields"]);
         $campo = json_decode($_REQUEST["data"]);
         $params["data"] = array($campo);
+	
 	//var_dump($params);
-	$osql->output($osql->saveData($params,$activo));
+	
+	$osql->output($osql->saveDataHorario($params,$activo));
 
 } // eo function saveData
 // }}}
@@ -154,13 +146,13 @@ function saveData($osql) {
   * @param     PDO $osql
   */
 function deleteData($osql) {
-	//global $objects;
-	//$params = $objects[$_REQUEST["objName"]];
-	//unset($params["fields"]);
-        $tabla = $_REQUEST["objName"];
-	$idcampo = $_REQUEST["idName"];
-	$datadel= json_decode($_REQUEST["data"]);
-	$osql->output($osql->DeleteRecord($datadel,$tabla,$idcampo));
+	global $objects;
+	$params = $objects[$_REQUEST["objName"]];
+	unset($params["fields"]);
+    $datadel= json_decode($_REQUEST["data"]);
+     
+	 
+	$osql->output($osql->DeleteRecord($params,$datadel));
 
 } // eo function saveData
 // }}}

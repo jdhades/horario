@@ -122,8 +122,8 @@ function saveData($osql) {
 	unset($params["fields"]);
 
 	$params["data"] = json_decode($_REQUEST["data"]);
-	var_dump($params);
-	//$osql->output($osql->saveData($params));
+	//var_dump($params);
+	$osql->output($osql->saveData($params));
 
 } // eo function saveData
 // }}}
@@ -138,13 +138,11 @@ function saveData($osql) {
   * @param     PDO $osql
   */
 function deleteData($osql) {
-	//global $objects;
-	//$params = $objects[$_REQUEST["objName"]];
-	//unset($params["fields"]);
-        $tabla = $_REQUEST["objName"];
-	$idcampo = $_REQUEST["idName"];
-	$datadel= json_decode($_REQUEST["data"]);
-	$osql->output($osql->DeleteRecord($datadel,$tabla,$idcampo));
+	global $objects;
+	$params = $objects[$_REQUEST["objName"]];
+	unset($params["fields"]);
+    $datadel= json_decode($_REQUEST["data"]);
+	$osql->output($osql->DeleteRecord($parms, $datadel));
 
 } // eo function saveData
 // }}}

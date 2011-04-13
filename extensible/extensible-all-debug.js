@@ -3838,7 +3838,7 @@ Ext.reg('extensible.eventcontextmenu', Ext.ensible.cal.EventContextMenu);/**
  * @xtype calendarpanel
  */
 Ext.ensible.cal.CalendarList = Ext.extend(Ext.Panel, {
-    title: 'Calendars',
+    title: 'Plazas',
     collapsible: true,
     autoHeight: true,
     layout: 'fit',

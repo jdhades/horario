@@ -42,9 +42,9 @@ Ext.onReady(function(){
 	//baseParams:{objName:'Horarios'},
         api: {
             read:    'php/requestHorario.php?cmd=getData', //apiRoot+'view',
-            create:   'php/requestHorario.php?cmd=saveData&newRecord=true',//apiRoot+'create',
-	    update:  'remote/updateEventos.php',//update:  apiRoot+'update',
-            destroy: apiRoot+'destroy'
+            create:  'php/requestHorario.php?cmd=saveData&newRecord=true',//apiRoot+'create',
+	        update:  {url:'php/requestHorario.php?cmd=saveData&',method:'POST'},//update:  apiRoot+'update',
+            destroy: {url:'php/requestHorario.php?cmd=deleteData&',method:'POST'}
         },
         listeners: {
             exception: function(proxy, type, action, o, res, arg){
@@ -91,13 +91,13 @@ Ext.onReady(function(){
             'write': function(store, action, data, resp, rec){
                 switch(action){
                     case 'create': 
-                        Ext.ensible.sample.msg('Add', 'Added "' + Ext.value(rec.data[Ext.ensible.cal.EventMappings.Title.name], '(No title)') + '"');
+                        Ext.ensible.sample.msg('Agregar', 'Agregado "' + Ext.value(rec.data[Ext.ensible.cal.EventMappings.Title.name], '(No title)') + '"');
                         break;
                     case 'update':
-                        Ext.ensible.sample.msg('Update', 'Updated "' + Ext.value(rec.data[Ext.ensible.cal.EventMappings.Title.name], '(No title)') + '"');
+                        Ext.ensible.sample.msg('Modificar', 'Modificado "' + Ext.value(rec.data[Ext.ensible.cal.EventMappings.Title.name], '(No title)') + '"');
                         break;
                     case 'destroy':
-                        Ext.ensible.sample.msg('Delete', 'Deleted "' + Ext.value(rec.data[Ext.ensible.cal.EventMappings.Title.name], '(No title)') + '"');
+                        Ext.ensible.sample.msg('Eliminar', 'Eliminado "' + Ext.value(rec.data[Ext.ensible.cal.EventMappings.Title.name], '(No title)') + '"');
                         break;
                 }
             }
@@ -170,14 +170,15 @@ Ext.onReady(function(){
                             }
                         },{
                             xtype: 'extensible.calendarlist',
-                            store: calendarStore,
+                            id:'app-calendarlist',
+							store: calendarStore,
                             border: false,
                             width: 175
                         }]
                     },{
                         xtype: 'extensible.calendarpanel',
                         id: 'app-calendar',
-        		eventStore: store,
+        		eventStore: so
  			calendarStore: calendarStore,
       			//  renderTo: 'cal',
         		title: 'HORARIO DE EJECUTIVO DE VENTAS',
