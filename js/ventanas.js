@@ -67,7 +67,14 @@
 		}]
 
     });
-      
+       rf = new Ext.ux.grid.RecordForm({
+		 formCt:'east-form'
+		,autoShow:true
+		,autoHide:false
+		,showButtons:true
+		//,ignoreFields:{compID:true}
+		,formConfig:{autoHeight:false,border:true, frame:true, margins:'10 10 10 10'}
+	});
      
 	 win2 = new Ext.Window({
 		 id:'win2'
@@ -94,12 +101,13 @@
 			,id:'east-form'
 			,title:'Form'
 			,stateful:false
-			,width:300
+			,width:200
 			,split:true
 			,border:true
 			,frame:true
 			,collapsible:true
 			,layout:'fit'
+			
 		}]
 	});
 

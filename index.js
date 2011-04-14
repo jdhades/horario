@@ -69,7 +69,7 @@ App = function() {
     });
     
     var writer = new Ext.data.JsonWriter({
-      //  encode: true,
+       encode: true,
         writeAllFields: false
     });
     
@@ -108,7 +108,7 @@ App = function() {
     
 	            new Ext.Viewport({
                 layout: 'border',
-                renderTo: 'cal',
+                renderTo: 'calendar-ct',
                 items: [{
                     	 id: 'app-header',
                     	 region: 'north',
@@ -117,7 +117,7 @@ App = function() {
 				      	items:[{
 		   				 region: 'south'
 		    			,id:'app-menu'
-		    			,el:'app-menu'
+		    		//	,el:'app-menu'
 		    			,border:false
 		    			,tbar:[{
 			    			text:'Agregar Plazas'

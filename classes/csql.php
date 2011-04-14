@@ -410,30 +410,31 @@ class csql {
 			 "table"=>$table
 			 ,"idName"=>$idName
 		);
-
-	    echo "aqui esta este";
-		$cod = $p["codigo"];
-		var_dump($p["codigo"]); 
-		 var_dump($cod);
-		if ( $table == 'Vendedores'){
+     
+	 		
 		
-		$count = $dbh->exec("SELECT codigo FROM vendedore WHERE codigo = '".$cod."'");
-		
-		 if ($count > 0){
-			   $o->success = false;
-				$o->error = "Codigo Repetido";
-				return $o;
-
-			 }
-		}
-
 		$this->odb->exec("begin transaction");
 
 		foreach($data as $orec) {
 			$p["data"] = $orec;
-
+                
 			// insert/update switch
 			if(isset($orec->newRecord) && $orec->newRecord) {
+				$cod= object2array($data[0]);
+				$foo=$cod["codigo"]; 
+				if ( $table == 'Vendedores'){
+		 			$sql1=("SELECT codigo FROM Vendedores WHERE codigo = '$foo'");
+					
+	     			  foreach ($this->odb->query($sql1) as $row){
+					         				
+						if ($row["codigo"]==$foo){
+							$o->success = false;
+							$o->error = "Codigo Repetido: el codigo es: ". $foo;
+							return $o;
+							
+							}
+				 }
+				}
 				$result = $this->insertRecord($p);
 			}
 			else {

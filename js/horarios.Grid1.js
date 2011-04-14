@@ -142,7 +142,7 @@ horarios.Grid1 = Ext.extend(Ext.grid.EditorGridPanel, {
 			},{
 				text:'Cerrar'
 				,inconCls:'icon-trash-closed'
-				,handler:function(){App.calendarPanel.calendarStore.load();  win2.hide();}
+				,handler:function(){App.calendarPanel.calendarStore.load();  win2.hide();	this.store.load({params:{start:0,limit:10}});}
 			}]
 			,tbar:[/*{
 				 text:'Agregar-GRID'

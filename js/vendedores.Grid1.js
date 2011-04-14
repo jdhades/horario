@@ -7,7 +7,7 @@ vendedores.version = 'Beta 2'
 
 vendedores.Grid1 = Ext.extend(Ext.grid.EditorGridPanel, {
 	 layout:'fit'
-         ,id:'idgrid' 
+    ,id:'idgridVendedores' 
 	,border:false
 	,stateful:false
 	,url:'php/requestVendedores.php'
@@ -165,13 +165,15 @@ vendedores.Grid1 = Ext.extend(Ext.grid.EditorGridPanel, {
 						r.reject();
 					});
 					this.store.modified = [];
-//					this.store.rejectChanges();
+					//this.store.rejectChanges();
+				   this.store.load({params:{start:0,limit:10}});
 			}
 				
 			},{
 				text:'Cerrar'
 				,inconCls:'icon-trash-closed'
-				,handler:function(){winVendedores.hide();}
+				,scope:this
+				,handler:function(){this.store.load({params:{start:0,limit:10}});winVendedores.hide(); }
 			}]
 			,tbar:[/*{
 				 text:'Agregar-GRID'
@@ -278,7 +280,14 @@ vendedores.Grid1 = Ext.extend(Ext.grid.EditorGridPanel, {
 	,requestCallback:function(options, success, response) {
 //		console.log(response, response.getAllResponseHeaders());
 		if(true !== success) {
-			this.showError(response.responseText);
+			this.showError(response.responseText );
+			this.store.each(function(r) {
+						r.reject();
+					});
+					this.store.modified = [];
+					//this.store.rejectChanges();
+		  
+            
 			return;
 		}
 		try {
@@ -289,10 +298,17 @@ vendedores.Grid1 = Ext.extend(Ext.grid.EditorGridPanel, {
 			return;
 		}
 		if(true !== o.success) {
-			this.showError(o.error || 'Unknown error');
+			this.showError(o.error  || 'Unknown error');
+			this.store.each(function(r) {
+						r.reject();
+					});
+					this.store.modified = [];
+					//this.store.rejectChanges();
+			
+            
 			return;
 		}
-
+       
 		switch(options.params.cmd) {
 			case 'saveData':
 				var records = this.store.getModifiedRecords();
@@ -322,6 +338,8 @@ vendedores.Grid1 = Ext.extend(Ext.grid.EditorGridPanel, {
 			,icon:Ext.Msg.ERROR
 			,buttons:Ext.Msg.OK
 			,minWidth:1200 > String(msg).length ? 360 : 600
+			,scope:this
+			,fn:function(){ this.store.load({params:{start:0,limit:10}});}
 		});
 	} // eo function showError
 	// }}}
@@ -333,13 +351,13 @@ vendedores.Grid1 = Ext.extend(Ext.grid.EditorGridPanel, {
 			,icon:Ext.Msg.QUESTION
 			,buttons:Ext.Msg.YESNO
 			,scope:this
-                        ,displayInfo:true
+            ,displayInfo:true
 			,fn:function(response) {
-				if('yes' !== response) {
-					return;
-				}
-		         var delid = record.get('id')
-                         var o = {
+			if('yes' !== response) {
+				return;
+			}
+		     var delid = record.get('id')
+             var o = {
 			 url:this.url
 			,method:'post'
 			,callback:this.requestCallback

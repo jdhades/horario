@@ -178,11 +178,11 @@ Ext.onReady(function(){
                     },{
                         xtype: 'extensible.calendarpanel',
                         id: 'app-calendar',
-        		eventStore: so
- 			calendarStore: calendarStore,
+        				eventStore: store,
+ 						calendarStore: calendarStore,
       			//  renderTo: 'cal',
-        		title: 'HORARIO DE EJECUTIVO DE VENTAS',
-        		border: true,
+        				title: 'HORARIO DE EJECUTIVO DE VENTAS',
+        				border: true,
                         region: 'center',
                         activeItem: 1, // month view
                         
