@@ -7,7 +7,7 @@ horarios.version = 'Beta 2'
 
 horarios.Grid1 = Ext.extend(Ext.grid.EditorGridPanel, {
 	 layout:'fit'
-         ,id:'idgrid' 
+    ,id:'idgridHorarios' 
 	,border:false
 	,stateful:false
 	,url:'php/request.php'
@@ -52,10 +52,10 @@ horarios.Grid1 = Ext.extend(Ext.grid.EditorGridPanel, {
 					,totalProperty:'total'
 					,root:'data'
 					,fields:[
-                                   {name:'id',type:'int'}
-				   ,{name:'title',type:'string'}
-				   ,{name:'color',type:'int'}
-				   ,{name:'hidden',type:'int'}
+                              {name:'id',type:'int'}
+				  			 ,{name:'title',type:'string'}
+				   			 ,{name:'color',type:'int'}
+							 ,{name:'hidden',type:'int'}
 			          
 				   
 				]
@@ -142,7 +142,10 @@ horarios.Grid1 = Ext.extend(Ext.grid.EditorGridPanel, {
 			},{
 				text:'Cerrar'
 				,inconCls:'icon-trash-closed'
-				,handler:function(){App.calendarPanel.calendarStore.load();  win2.hide();	this.store.load({params:{start:0,limit:10}});}
+				,scope:this
+				,handler:function(){App.calendarPanel.calendarStore.load();  
+				                    winPlazas.hide();	
+									this.store.load({params:{start:0,limit:10}});}
 			}]
 			,tbar:[/*{
 				 text:'Agregar-GRID'

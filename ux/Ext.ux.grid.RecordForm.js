@@ -318,7 +318,10 @@ Ext.extend(Ext.ux.grid.RecordForm, Ext.util.Observable, {
 			// use cm editor if we have one
 			var extMajorVersion = parseInt(Ext.version);
 			if(c && c.editor && (3 === extMajorVersion || c.editor.field)) {
-				var editorField = 3 === extMajorVersion ? c.editor: c.editor.field;
+				if (extMayorversion === 3){
+					 var superdata = "esto no si funciona " ;
+					}
+				var editorField = 3 === extMajorVersion ?  c.editor.field : c.editor;
 				Ext.apply(o, {
 					 xtype:editorField.getXType()
 					,fieldLabel:c.header

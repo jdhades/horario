@@ -1,11 +1,11 @@
 Ext.ns('combobox');
 
-combobox.combo1 = {
+combobox.Cplazas = {
 	 xtype:'combo'
-     ,fieldLabel:'jean'
-	,name:'jean'
+    ,fieldLabel:'Plazas'
+	,name:'Plazas'
 	// we need id to focus this field. See window::defaultButton
-	,id:'combo'
+	,id:'Cplazas'
 
 	// we want to submit id, not text
 	,valueField:'id'

@@ -124,22 +124,18 @@ App = function() {
 			  			   ,tooltip:'Agregar un registro al grid'
 			    		   ,iconCls:'icon-plus'
 			    		   ,id:'btn-add'
-			    		   ,handler:function(){win2.show()}
-				//,listeners:{
-				//	click:{scope:this, fn:this.addRecord,buffer:200}
-				//}
-			},{
-				 text:'Agregar Vendedores'
-				,tooltip:'Agregar un registro con una forma'
-				,iconCls:'icon-form-add'
-				,handler:function(){winVendedores.show()}
-//				,listeners:{
-//					click:{scope:this, buffer:200, fn:function(btn) {
-//						formMaquinasAll.render(document.body);
-//                                                //this.recordForm.show(this.addRecord(), btn.getEl());
-//					}}
-//				}
-			}]
+			    		   ,handler:function(){winPlazas.show()}
+						},{
+					        text:'Agregar Vendedores'
+						   ,tooltip:'Agregar un registro con una forma'
+						   ,iconCls:'icon-form-add'
+			               ,handler:function(){winVendedores.show()}
+            			},{
+					        text:'Agregar Guardias'
+						   ,tooltip:'Agregar un registro con una forma'
+						   ,iconCls:'icon-form-add'
+			               ,handler:function(){winGuardias.show()}
+            			}]
 		    
 		    }]
 		   ,contentEl: 'app-header-content'
@@ -183,7 +179,7 @@ App = function() {
         				eventStore: store,
  						calendarStore: calendarStore,
       			//  renderTo: 'cal',
-        		title: 'HORARIO DE EJECUTIVO DE VENTAS',
+        		title: '   HORARIO DE EJECUTIVO DE VENTAS',
         		border: true,
                         region: 'center',
                         activeItem: 1, // month view

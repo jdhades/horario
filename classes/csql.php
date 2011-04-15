@@ -271,7 +271,7 @@ class csql {
 		array_walk($values, "quote_array", "'");
 
 		$sql = "insert into $table (" . implode(",", $fields) . ") values (" . implode(",", $values) . ")";
-   //      echo $sql;
+         echo $sql;
 	    try {
 			$this->odb->exec($sql);
 			$o->success = true;
@@ -423,6 +423,7 @@ class csql {
 				$cod= object2array($data[0]);
 				$foo=$cod["codigo"]; 
 				if ( $table == 'Vendedores'){
+					
 		 			$sql1=("SELECT codigo FROM Vendedores WHERE codigo = '$foo'");
 					
 	     			  foreach ($this->odb->query($sql1) as $row){

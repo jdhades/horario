@@ -23,7 +23,7 @@
 			,border:false
 			,items:[{
 				 xtype:'horariosgrid3'
-				,id:'horariosgrid1'
+				,id:'grid-horarios'
 				,region:'center'
 				,title:'Ingresar Plazas'
 				,height:300
@@ -32,7 +32,10 @@
 		}]
 
     });
-     
+/////////////////////////////////////////////////// FIN WIN PLAZAS 1 ////////////////////////////////////////////////	
+
+     /////////////////////////////////////////////////// INICIO WIN VENDEDORES ////////////////////////////////////////////////	
+
       winVendedores = new Ext.Window({
          title: 'Vendedores'
 	    ,id:'winVendedores'
@@ -67,7 +70,52 @@
 		}]
 
     });
-       rf = new Ext.ux.grid.RecordForm({
+/////////////////////////////////////////////////// FIN WIN VENDEDORES //////////////////////////////////////////////
+
+/////////////////////////////////////////////////// INICIO WIN GUARDIAS//////////////////////////////////////////////
+
+  winGuardias = new Ext.Window({
+         title: 'Guardias'
+	    ,id:'winGuardias'
+        ,width:640
+        ,height:480
+	// ,maximized:true
+		,border:false
+		,closable:true
+		,closeAction:'hide'
+		,layout:'border'
+		,items:[
+			{
+			  xtype:'panel'
+			  ,region:'north'
+			  ,id:'box'
+			  //,applyTo:'header'
+			  
+			},
+			{
+			 
+			 layout:'border'
+			,region:'center'
+			,border:false
+			,items:[{
+				 xtype:'guardiasgrid3'
+				,id:'grid-vendedores'
+				,region:'center'
+				,title:'Ingresar Vendedores'
+				,height:300
+				
+			}]
+		}]
+
+    });
+
+/////////////////////////////////////////////////// FIN WIN GUARDIAS ////////////////////////////////////////////////	
+	
+/////////////////////////////////////////////////// INICIO WIN PLAZAS 2 ////////////////////////////////////////////////	
+	
+	
+	
+    /*   rf = new Ext.ux.grid.RecordForm({
 		 formCt:'east-form'
 		,autoShow:true
 		,autoHide:false
@@ -110,5 +158,7 @@
 			
 		}]
 	});
-
+*/
 //	win2.show();
+
+/////////////////////////////////////////////////// FIN WIN PLAZAS 2 ////////////////////////////////////////////////	
