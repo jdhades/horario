@@ -16,6 +16,7 @@ $objects = array(
 		,"idName"=>"id"
 		,"fields"=>array(
 			 "id"
+			,"id_plazas" 
 			,"descrip"
 			,"hora_ini"
 			,"hora_fin"

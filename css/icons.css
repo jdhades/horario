@@ -307,7 +307,7 @@
 	background-image:url(../images/icons/arrow_right.png) ! important;
 }
 .icon-blank-img {
-	background-image:url(../ext/resources/images/default/s.gif) ! important;
+	background-image:url(http://localhost/horario2/ext-3.3.1/resources/images/default/s.gif) ! important;
 }
 .icon-delete {
 	background-image:url(../images/icons/bin_empty.png) ! important;

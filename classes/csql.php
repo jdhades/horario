@@ -271,7 +271,7 @@ class csql {
 		array_walk($values, "quote_array", "'");
 
 		$sql = "insert into $table (" . implode(",", $fields) . ") values (" . implode(",", $values) . ")";
-         echo $sql;
+         
 	    try {
 			$this->odb->exec($sql);
 			$o->success = true;

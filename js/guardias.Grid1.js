@@ -1,7 +1,7 @@
 
 
 Ext.ns('guardias', 'Ext.ux');
-Ext.BLANK_IMAGE_URL = 'ext-3.3.1/resources/images/default/s.gif';
+Ext.BLANK_IMAGE_URL = 'http://localhost/horario2/ext-3.3.1/resources/images/default/s.gif';
 Ext.state.Manager.setProvider(new Ext.state.CookieProvider);
 guardias.version = 'Beta 2';
 
@@ -31,7 +31,7 @@ guardias.Forms = function() {
        	})
 	,displayField:'title'
 	,valueField:'id'
-	,hiddenField:'titleid'
+	//,hiddenField:'id'
     ,triggerAction:'all'
 	,mode:'remote'
 	,editable:false
@@ -92,7 +92,7 @@ guardias.Grid1 = Ext.extend(Ext.grid.EditorGridPanel, {
 					,fields:[
                              {name:'id',type:'int'}
 				   			,{name:'descrip',type:'string'}
-							,{name:'plazas',type:'string'}
+							,{name:'id_plazas',type:'string'}
 				   			,{name:'hora_ini',type:'date',format:"H:i:s"}
 							,{name:'hora_fin',type:'date',format:"H:i:s"}
 				   			,{name:'activo',type:'int'}
@@ -137,9 +137,9 @@ guardias.Grid1 = Ext.extend(Ext.grid.EditorGridPanel, {
 				})
 			},{
 				 header:'Plazas'
-				//,id:'combo'
-				,dataIndex:'id_plaza'
-				,width:75
+				,id:'combo'
+				,dataIndex:'id_plazas'
+				,width:200
 				,sortable:true
 				,editor: guardias.Forms.PlazasCombo
 				,renderer: Ext.util.Format.comboRenderer(guardias.Forms.PlazasCombo)
@@ -151,10 +151,15 @@ guardias.Grid1 = Ext.extend(Ext.grid.EditorGridPanel, {
 				,width:200
 				,sortable:true
 				
-				,editor:new Ext.ux.form.XTimeField({
+				,editor: new Ext.form.TimeField({
+					minValue :'6:00:00'
+					,maxValue :'23:00:00'
+					,width:75
+					,increment: 15
+					,format:'H:i:s'
 					//allowBlank:false
-					
 				})
+				,renderer:Ext.util.Format.dateRenderer('H:i:s')
 			},{
 				 header:'Hora de Fin'
 				//,id:'id-direccion'
@@ -162,10 +167,16 @@ guardias.Grid1 = Ext.extend(Ext.grid.EditorGridPanel, {
 				,width:200
 				,sortable:true
 				
-				,editor:new Ext.ux.form.XTimeField({
+				,editor:new Ext.form.TimeField({
+					minValue :'6:00'
+					,maxValue :'23:00'
+					,width:75
+					,increment: 15
+					,format:'H:i:s'
 					//allowBlank:false
 					
 				})
+				,renderer:Ext.util.Format.dateRenderer('H:i:s')
 			},{
 				 header:'Disponible'
 				//,id:'id-telefonos'

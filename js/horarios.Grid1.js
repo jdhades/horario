@@ -1,7 +1,7 @@
 
 
 Ext.ns('horarios', 'Ext.ux');
-Ext.BLANK_IMAGE_URL = 'ext-3.3.1/resources/images/default/s.gif';
+Ext.BLANK_IMAGE_URL = 'http://localhost/horario2/ext-3.3.1/resources/images/default/s.gif';
 Ext.state.Manager.setProvider(new Ext.state.CookieProvider);
 horarios.version = 'Beta 2'
 

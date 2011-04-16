@@ -30,11 +30,11 @@
 }
 
 .user {
-    background-image:url(ext-3.3.1/example/shared/icons/fam/user.gif) !important
+    background-image:url(http://localhost/horario2/ext-3.3.1/example/shared/icons/fam/user.gif) !important
 }
 .edit {
-    background-image:url(ext-3.3.1/example/desktop/images/im32x32.gif) !important;
+    background-image:url(http://localhost/horario2/ext-3.3.1/example/desktop/images/im32x32.gif) !important;
 }
 .add {
-    background-image:url(ext-3.3.1/example/button/images/add.gif) !important;
+    background-image:url(http://localhost/horario2/ext-3.3.1/example/button/images/add.gif) !important;
 }
