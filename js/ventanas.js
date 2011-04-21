@@ -5,7 +5,7 @@
         ,height:480
 	// ,maximized:true
 		,border:false
-		,closable:true
+		,closable:false
 		,closeAction:'hide'
 		,layout:'border'
 		,items:[
@@ -25,7 +25,7 @@
 				 xtype:'horariosgrid3'
 				,id:'grid-horarios'
 				,region:'center'
-				,title:'Ingresar Plazas'
+				//,title:'Ingresar Plazas'
 				,height:300
 				
 			}]
@@ -43,7 +43,7 @@
         ,height:480
 	// ,maximized:true
 		,border:false
-		,closable:true
+		,closable:false
 		,closeAction:'hide'
 		,layout:'border'
 		,items:[
@@ -63,7 +63,7 @@
 				 xtype:'vendedoresgrid1'
 				,id:'grid-vendedores'
 				,region:'center'
-				,title:'Ingresar Vendedores'
+				//,title:'Ingresar Vendedores'
 				,height:300
 				
 			}]
@@ -81,7 +81,7 @@
         ,height:480
 	// ,maximized:true
 		,border:false
-		,closable:true
+		,closable:false
 		,closeAction:'hide'
 		,layout:'border'
 		,items:[
@@ -101,7 +101,7 @@
 				 xtype:'guardiasgrid3'
 				,id:'grid-vendedores'
 				,region:'center'
-				,title:'Ingresar Vendedores'
+				//,title:'Ingresar Guardias'
 				,height:300
 				
 			}]

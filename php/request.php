@@ -142,7 +142,7 @@ function deleteData($osql) {
 	$params = $objects[$_REQUEST["objName"]];
 	unset($params["fields"]);
     $datadel= json_decode($_REQUEST["data"]);
-	$osql->output($osql->DeleteRecord($parms, $datadel));
+	$osql->output($osql->DeleteRecord($params, $datadel));
 
 } // eo function saveData
 // }}}

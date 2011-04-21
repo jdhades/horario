@@ -17,7 +17,7 @@ guardias.Forms = function() {
   
  PlazasCombo: new Ext.form.ComboBox({
 	store:new Ext.data.JsonStore({
-        id:'id'
+        id:'id_store_plazas'
        ,root:'data'
        ,totalProperty:'total'
        ,fields:[
@@ -37,7 +37,8 @@ guardias.Forms = function() {
 	,editable:false
 	,lazyRender:true
     ,forceSelection:true
-	,id:'PlazasField'
+    ,id:'PlazasField'
+	//,tpl:'<tpl for="."><div class="x-combo-list-item">{title}</div></tpl>'
    })
  
  };
@@ -58,8 +59,7 @@ guardias.Grid1 = Ext.extend(Ext.grid.EditorGridPanel, {
 			,iconCls:'icon-edit-record'
 			,columnCount:2
 			,ignoreFields:{id:true}
-			//,readonlyFields:{action1:true}
-			//,disabledFields:{qtip1:true}
+		
 			,formConfig:{
 				 labelWidth:80
 				,buttonAlign:'right'
@@ -93,8 +93,8 @@ guardias.Grid1 = Ext.extend(Ext.grid.EditorGridPanel, {
                              {name:'id',type:'int'}
 				   			,{name:'descrip',type:'string'}
 							,{name:'id_plazas',type:'string'}
-				   			,{name:'hora_ini',type:'date',format:"H:i:s"}
-							,{name:'hora_fin',type:'date',format:"H:i:s"}
+				   			,{name:'hora_ini'}
+							,{name:'hora_fin'}
 				   			,{name:'activo',type:'int'}
 			          
 				   
@@ -142,41 +142,30 @@ guardias.Grid1 = Ext.extend(Ext.grid.EditorGridPanel, {
 				,width:200
 				,sortable:true
 				,editor: guardias.Forms.PlazasCombo
-				,renderer: Ext.util.Format.comboRenderer(guardias.Forms.PlazasCombo)
+			//	,renderer: Ext.util.Format.comboRenderer(guardias.Forms.PlazasCombo)
 					
 			},{
 				 header:'Hora de Inicio'
-				//,id:'id-direccion'
+				,id:'hora_ini'
 				,dataIndex:'hora_ini'
 				,width:200
 				,sortable:true
 				
-				,editor: new Ext.form.TimeField({
-					minValue :'6:00:00'
-					,maxValue :'23:00:00'
-					,width:75
-					,increment: 15
-					,format:'H:i:s'
-					//allowBlank:false
+				,editor: new Ext.ux.form.XTimeField({
+				    format:'H:i:s'
+					
 				})
-				,renderer:Ext.util.Format.dateRenderer('H:i:s')
 			},{
 				 header:'Hora de Fin'
-				//,id:'id-direccion'
+				,id:'hora_fin'
 				,dataIndex:'hora_fin'
 				,width:200
 				,sortable:true
 				
-				,editor:new Ext.form.TimeField({
-					minValue :'6:00'
-					,maxValue :'23:00'
-					,width:75
-					,increment: 15
-					,format:'H:i:s'
-					//allowBlank:false
+				,editor:new Ext.ux.form.XTimeField({
+					format:'H:i:s'
 					
 				})
-				,renderer:Ext.util.Format.dateRenderer('H:i:s')
 			},{
 				 header:'Disponible'
 				//,id:'id-telefonos'

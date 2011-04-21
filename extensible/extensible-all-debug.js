@@ -1912,8 +1912,11 @@ Ext.ensible.cal.EventMappings = {
     Url:         {name: 'Url', mapping: 'url', type: 'string'},
     IsAllDay:    {name: 'IsAllDay', mapping: 'ad', type: 'boolean'},
     Reminder:    {name: 'Reminder', mapping: 'rem', type: 'string'}
-	
-};/**
+    	
+};
+
+
+/**
  * @class Ext.ensible.cal.CalendarMappings
  * @extends Object
  * A simple object that provides the field definitions for 
@@ -2329,6 +2332,7 @@ Ext.ensible.cal.CalendarCombo = Ext.extend(Ext.form.ComboBox, {
     // private
     assertValue  : function(){
         var val = this.getRawValue(),
+	   
             rec = this.findRecord(this.displayField, val);
 
         if(!rec && this.forceSelection){
@@ -4432,7 +4436,7 @@ Ext.ensible.cal.EventEditWindow = Ext.extend(Ext.Window, {
     calendarLabelText: 'Calendar',
     editDetailsLinkClass: 'edit-dtl-link',
     bodyStyle: 'padding:5px 10px;',
-    enableEditDetails: true,
+    enableEditDetails: false,
     
     // private
     initComponent: function(){
@@ -4523,11 +4527,10 @@ this.combo1 = new Ext.form.ComboBox({
 	,id:'combo'
     ,anchor: '100%'
 	// we want to submit id, not text
-	,valueField:'title'
-	//,hiddenName:'id'
-
+	,valueField:'codigo'
+	
 	// could be undefined as we use custom template
-	,displayField:'title'
+	,displayField:'codigo'
 
 	// query all records on trigger click
 	,triggerAction:'all'
@@ -4542,7 +4545,7 @@ this.combo1 = new Ext.form.ComboBox({
 	,enableKeyEvents:true
 
 	// let's use paging combo
-	,pageSize:2
+	,pageSize:10
 
 	// make the drop down list resizable
 	,resizable:true
@@ -4553,6 +4556,13 @@ this.combo1 = new Ext.form.ComboBox({
 	// force user to fill something
 	,allowBlank:false
 
+	////////////////////////////////////
+	,emptyText: 'Seleccione el Ejecutivo de Venta'
+	,typeAhead: true
+        ,selectOnFocus: true
+        ,itemSelector:'div.x-combo-list-item'
+        
+	
 	// store getting items from server
 	,store:new Ext.data.JsonStore({
 		 id:'id'
@@ -4560,25 +4570,28 @@ this.combo1 = new Ext.form.ComboBox({
 		,totalProperty:'total'
 		,fields:[
 			 {name:'id', type:'int'}
-			,{name:'title', type:'string'}
+			,{name:'codigo', type:'string'}
+			,{name:'nombre', type:'string'}
+			,{name:'apellido', type:'string'}
 //			,{name:'persFirstName', type:'string'}
 		]
-		,url:'php/request.php'
+		,url:'php/requestVendedores.php'
 		,baseParams:{
 			 cmd:'getData'
-			,objName:'Plazas'
-			,fields:'["id","title"]'
+			,objName:'Vendedores'
+			,fields:'["id","codigo","nombre","apellido"]'
 		}
 	})
 
 	// concatenate last and first names
-	,tpl:'<tpl for="."><div class="x-combo-list-item">{title}</div></tpl>'
+	,tpl:'<tpl for="."><div class="x-combo-list-item">{codigo} - {nombre} {apellido} </div></tpl>'
 
 	// listeners
 	,listeners:{
 		// sets raw value to concatenated last and first names
 		 select:function(combo, record, index) {
-			this.setRawValue(record.get('title'));
+			this.setRawValue(record.get('codigo')+' - '+record.get('nombre')+' '+record.get('apellido'));
+		
 		}
 
 		// repair raw value after blur
@@ -4603,7 +4616,7 @@ this.combo1 = new Ext.form.ComboBox({
 
 // eof
 
-		
+    	
 		/////////////////////
 		
         var items = [this.combo1, this.dateRangeField];
@@ -4613,9 +4626,118 @@ this.combo1 = new Ext.form.ComboBox({
                 name: Ext.ensible.cal.EventMappings.CalendarId.name,
                 anchor: '100%',
                 fieldLabel: this.calendarLabelText,
-                store: this.calendarStore
+                store: this.calendarStore,
+		listeners:{
+		// sets raw value to concatenated last and first names
+		 select:function(combo, record, index) {
+                        combocolor =  this.getValue();
+			Ext.getCmp('combo2').enable();
+                        Ext.getCmp('combo2').clearValue();
+                        Ext.getCmp('combo2').getStore().load({params:{start:0,limit:10,id_plazas:combocolor}});
+                      
+                        
+		}
+		
+		}
             });
+	    
+	        /////////////
+this.comboGuardia = new Ext.form.ComboBox({
+	name:  Ext.ensible.cal.EventMappings.Guardia
+	
+	, fieldLabel: 'Guardia'
+	// we need id to focus this field. See window::defaultButton
+	,id:'combo2'
+	,disable: true
+    ,anchor: '100%'
+	// we want to submit id, not text
+	,valueField:'id'
+	
+	// could be undefined as we use custom template
+	,displayField:'descrip'
+
+	// query all records on trigger click
+	,triggerAction:'all'
+
+	// minimum characters to start the search
+	,minChars:2
+
+	// do not allow arbitrary values
+	,forceSelection:true
+
+	// otherwise we will not receive key events 
+	,enableKeyEvents:true
+
+	// let's use paging combo
+	,pageSize:10
+
+	// make the drop down list resizable
+	,resizable:true
+
+	// we need wider list for paging toolbar
+	,minListWidth:240
+
+	// force user to fill something
+	,allowBlank:false
+
+	// store getting items from server
+	,allowBlank:false
+        ,emptyText: 'Selecciona La Guardia'
+	,typeAhead: true
+        ,selectOnFocus: true
+        ,itemSelector:'div.x-combo-list-item'
+        ,mode:'local' 
+	,store:new Ext.data.JsonStore({
+		 id:'id'
+		,root:'data'
+		,totalProperty:'total'
+		,fields:[
+			 {name:'id', type:'int'}
+			,{name:'descrip', type:'string'}
+			
+		]
+		,url:'php/requestGuardiasHorario.php'
+		,baseParams:{
+			 cmd:'getData'
+			,objName:'Guardias'
+			//,fields:'["id","codigo","nombre","apellido"]'
+		}
+	})
+
+	// concatenate last and first names
+	,tpl:'<tpl for="."><div class="x-combo-list-item">{descrip}</div></tpl>'
+
+	// listeners
+	,listeners:{
+		// sets raw value to concatenated last and first names
+		 select:function(combo, record, index) {
+			this.setRawValue(record.get('descrip'));
+		
+		}
+
+		// repair raw value after blur
+		,blur:function() {
+			var val = this.getRawValue();
+			this.setRawValue.defer(1, this, [val]);
+		}
+
+		// set tooltip and validate 
+		,render:function() {
+			this.el.set(
+				{qtip:'Type at least ' + this.minChars + ' characters to search in last name'}
+			);
+			this.validate();
+		}
+
+	}
+
+	// label
+	
+});
+
+// eof	
             items.push(this.calendarField);
+	    items.push(this.comboGuardia);
         }
         
         this.formPanel = new Ext.FormPanel({
@@ -4945,7 +5067,7 @@ Ext.ensible.cal.CalendarView = Ext.extend(Ext.BoxComponent, {
      * @cfg {String} defaultEventTitleText
      * The default text to display as the title of an event that has a null or empty string title value (defaults to '(No title)')
      */
-    defaultEventTitleText: '(No title)',
+    defaultEventTitleText: '(hay algo)',
     /**
      * @cfg {String} dateParamStart
      * The param name representing the start date of the current view range that's passed in requests to retrieve events

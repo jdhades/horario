@@ -10,7 +10,25 @@ App = function() {
         init : function() {
     
      Ext.QuickTips.init();
- 
+ Ext.ensible.cal.EventMappings = {
+    EventId:     {name: 'EventId', mapping:'id', type:'int'},
+    CalendarId:  {name: 'CalendarId', mapping: 'cid', type: 'int'},
+    Title:       {name: 'Title', mapping: 'title', type: 'string'},
+    StartDate:   {name: 'StartDate', mapping: 'start', type: 'date', dateFormat: 'c'},
+    EndDate:     {name: 'EndDate', mapping: 'end', type: 'date', dateFormat: 'c'},
+    RRule:       {name: 'RecurRule', mapping: 'recur_rule'}, // not currently used
+    Location:    {name: 'Location', mapping: 'loc', type: 'string'},
+    Notes:       {name: 'Notes', mapping: 'notes', type: 'string'},
+    Url:         {name: 'Url', mapping: 'url', type: 'string'},
+    IsAllDay:    {name: 'IsAllDay', mapping: 'ad', type: 'boolean'},
+    Reminder:    {name: 'Reminder', mapping: 'rem', type: 'string'},
+    
+    // We can also add some new fields that do not exist in the standard EventRecord:
+   Guardia:   {name: 'Guardia', mapping: 'guardias'}
+    
+};
+// Don't forget to reconfigure!
+Ext.ensible.cal.EventRecord.reconfigure();
 
  var newRecord = true;
     var today = new Date().clearTime();
@@ -70,7 +88,7 @@ App = function() {
     
     var writer = new Ext.data.JsonWriter({
        encode: true,
-        writeAllFields: false
+        writeAllFields: true
     });
     
     var store = new Ext.ensible.cal.EventStore({
@@ -134,7 +152,10 @@ App = function() {
 					        text:'Agregar Guardias'
 						   ,tooltip:'Agregar un registro con una forma'
 						   ,iconCls:'icon-form-add'
-			               ,handler:function(){winGuardias.show()}
+			               ,handler:function(){winGuardias.show();
+				       //  Ext.getCmp('guardiasgrid3').getStore().load({params:{start:0,limit:50}});
+					// Ext.getCmp('guardiasgrid3').reconfigure();
+				       }
             			}]
 		    
 		    }]

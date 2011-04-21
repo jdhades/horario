@@ -127,9 +127,9 @@ function saveData($osql) {
 	$params = $objects[$_REQUEST["objName"]];
 	unset($params["fields"]);
         $campo = json_decode($_REQUEST["data"]);
-        $params["data"] = array($campo);
+        //$campo->title = "jean newman";
+	$params["data"] = array($campo);
 	
-	//var_dump($params);
 	
 	$osql->output($osql->saveDataHorario($params,$activo));
 

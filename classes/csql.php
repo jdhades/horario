@@ -112,7 +112,7 @@ class csql {
 				
 				$dsn = 'mysql:dbname=prueba;host=localhost';
 				$user = 'root';
-				$password = 'pantera';
+				$password = '';
 
 				try {
 				   $odb = new PDO($dsn, $user, $password);
@@ -220,9 +220,12 @@ class csql {
 //	print_r($params);
 //	echo "</PRE>";
 //}
+//var_dump($params["query"]);
 		$sql  = "select ";
 		$sql .= implode(",", $fields);
-		$sql .= " from $table " . $this->getWhere($params);
+		$sql .= " from $table ";
+		$sql .= isset  ($inner) ? " $inner " : "";
+		$sql .= $this->getWhere($params);
 		$sql .= isset($groupBy) && $groupBy ? " group by $groupBy" : "";
 
 		if(!is_null($sort)) {
@@ -233,7 +236,7 @@ class csql {
 			$sql .= " limit $start,$limit";
 		}
 		//if ($idName == 'fcontadores')
-	// echo $sql;
+	//echo $sql;
 		//}
 		
 		$ostmt = $this->odb->query($sql);
@@ -420,10 +423,11 @@ class csql {
                 
 			// insert/update switch
 			if(isset($orec->newRecord) && $orec->newRecord) {
-				$cod= object2array($data[0]);
-				$foo=$cod["codigo"]; 
 				if ( $table == 'Vendedores'){
-					
+				$cod= object2array($data[0]);
+			
+					$foo=$cod["codigo"]; 
+				
 		 			$sql1=("SELECT codigo FROM Vendedores WHERE codigo = '$foo'");
 					
 	     			  foreach ($this->odb->query($sql1) as $row){
@@ -510,7 +514,7 @@ class csql {
 		}
 
 		$sql = "update $table set " . implode(",", $asets) . $where;
-	
+	   //   echo $sql;
 		try {
 			$this->odb->exec($sql);
 			$o->success = true;
