@@ -1911,8 +1911,8 @@ Ext.ensible.cal.EventMappings = {
     Notes:       {name: 'Notes', mapping: 'notes', type: 'string'},
     Url:         {name: 'Url', mapping: 'url', type: 'string'},
     IsAllDay:    {name: 'IsAllDay', mapping: 'ad', type: 'boolean'},
-    Reminder:    {name: 'Reminder', mapping: 'rem', type: 'string'}
-    	
+    Reminder:    {name: 'Reminder', mapping: 'rem', type: 'string'},
+    Guardia:     {name: 'Guardia', mapping: 'guardia', type:'string'}	
 };
 
 
@@ -4431,7 +4431,7 @@ Ext.ensible.cal.EventEditWindow = Ext.extend(Ext.Window, {
     saveButtonText: 'Salvar',
     deleteButtonText: 'Eliminar',
     cancelButtonText: 'Cancelar',
-    titleLabelText: 'Title',
+    titleLabelText: 'Vendedor',
     datesLabelText: 'When',
     calendarLabelText: 'Calendar',
     editDetailsLinkClass: 'edit-dtl-link',
@@ -4483,7 +4483,7 @@ Ext.ensible.cal.EventEditWindow = Ext.extend(Ext.Window, {
              * @param {Ext.ensible.cal.EventRecord} rec The {@link Ext.ensible.cal.EventRecord record} that is currently being edited
              * @param {Ext.Element} el The target element
              */
-            editdetails: true
+            editdetails: false
         });
         
         this.fbar = ['->',{
@@ -4508,7 +4508,7 @@ Ext.ensible.cal.EventEditWindow = Ext.extend(Ext.Window, {
         this.deleteBtn = Ext.getCmp(this.id+'-delete-btn');
         
         this.titleField = new Ext.form.TextField({
-            name: Ext.ensible.cal.EventMappings.Title.name,
+            name: Ext.ensible.cal.EventMappings.nuevo.name,
             fieldLabel: this.titleLabelText,
             anchor: '100%'
         });
@@ -4522,7 +4522,7 @@ Ext.ensible.cal.EventEditWindow = Ext.extend(Ext.Window, {
 this.combo1 = new Ext.form.ComboBox({
 	name:  Ext.ensible.cal.EventMappings.Title.name
 	
-	, fieldLabel: 'title'
+	, fieldLabel: 'Vendedores'
 	// we need id to focus this field. See window::defaultButton
 	,id:'combo'
     ,anchor: '100%'
@@ -4619,7 +4619,7 @@ this.combo1 = new Ext.form.ComboBox({
     	
 		/////////////////////
 		
-        var items = [this.combo1, this.dateRangeField];
+        var items = [this.combo1,this.titleField, this.dateRangeField];
         
         if(this.calendarStore){
             this.calendarField = new Ext.ensible.cal.CalendarCombo({
@@ -4643,15 +4643,15 @@ this.combo1 = new Ext.form.ComboBox({
 	    
 	        /////////////
 this.comboGuardia = new Ext.form.ComboBox({
-	name:  Ext.ensible.cal.EventMappings.Guardia
+	name:  Ext.ensible.cal.EventMappings.Guardia.name
 	
 	, fieldLabel: 'Guardia'
 	// we need id to focus this field. See window::defaultButton
 	,id:'combo2'
 	,disable: true
-    ,anchor: '100%'
+        ,anchor: '100%'
 	// we want to submit id, not text
-	,valueField:'id'
+	,valueField:'descrip'
 	
 	// could be undefined as we use custom template
 	,displayField:'descrip'
@@ -4712,7 +4712,7 @@ this.comboGuardia = new Ext.form.ComboBox({
 		// sets raw value to concatenated last and first names
 		 select:function(combo, record, index) {
 			this.setRawValue(record.get('descrip'));
-		
+		        
 		}
 
 		// repair raw value after blur
@@ -4810,13 +4810,13 @@ this.comboGuardia = new Ext.form.ComboBox({
 
             var start = o[M.StartDate.name],
                 end = o[M.EndDate.name] || start.add('h', 1);
-                
+                guardias = o[M.Guardia.name],
             rec = new Ext.ensible.cal.EventRecord();
             //rec.data[M.EventId.name] = this.newId++;
             rec.data[M.StartDate.name] = start;
             rec.data[M.EndDate.name] = end;
             rec.data[M.IsAllDay.name] = !!o[M.IsAllDay.name] || start.getDate() != end.clone().add(Date.MILLI, 1).getDate();
-            
+            rec.data[M.Guardia.name] = guardias;
             f.reset();
             f.loadRecord(rec);
         }

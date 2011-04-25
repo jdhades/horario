@@ -55,7 +55,7 @@ horarios.Grid1 = Ext.extend(Ext.grid.EditorGridPanel, {
                               {name:'id',type:'int'}
 				  			 ,{name:'title',type:'string'}
 				   			 ,{name:'color',type:'int'}
-							 ,{name:'hidden',type:'int'}
+							 ,{name:'hidden',type:'boolean'}
 			          
 				   
 				]
@@ -112,7 +112,8 @@ horarios.Grid1 = Ext.extend(Ext.grid.EditorGridPanel, {
 				,dataIndex:'hidden'
 				,width:160
 				,sortable:true
-				,editor:new Ext.form.TextField({
+				,editor:new Ext.form.Checkbox({
+                                    inputValue:'Activo'
 					
 				})
 			}, this.rowActions]
