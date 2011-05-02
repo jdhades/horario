@@ -112,7 +112,7 @@ class csql {
 				
 				$dsn = 'mysql:dbname=prueba;host=localhost';
 				$user = 'root';
-				$password = '';
+				$password = 'pantera';
 
 				try {
 				   $odb = new PDO($dsn, $user, $password);

@@ -270,5 +270,28 @@ var winGenerar = new Ext.Window({
 	bodyStyle:'background-color:#fff;padding: 10px',
 	items:this.form,
 	buttonAlign: 'right', //botones alineados a la derecha
-	buttons:[{text:'Generar'},{text:'Cancel'}] //botones del formulario
+	buttons:[{text:'Generar',id:'salvar',
+	         handler:function(){
+					 Ext.get('salvar').on('click', function(){
+   					 	Ext.MessageBox.show({
+       					msg: 'Saving your data, please wait...',
+      					progressText: 'Saving...',
+  					    width:300,
+       					wait:true,
+       					waitConfig: {interval:200},
+      				 	icon:'ext-mb-download', 
+    			        animEl: 'buttonID'
+  					 });
+    setTimeout(function(){
+        //This simulates a long-running operation like a database save or XHR call.
+        //In real code, this would be in a callback function.
+        Ext.MessageBox.hide();
+        Ext.example.msg('Done', 'Your fake data was saved!');
+    }, 8000);
+});
+
+ 
+					  }
+				  }  
+	,{text:'Cancel'}] //botones del formulario
 });
