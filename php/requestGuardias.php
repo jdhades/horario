@@ -16,7 +16,7 @@ $objects = array(
 	"Guardias"=>array(
 		"table"=>"Guardias"  . $consult
 		,"idName"=>"id"
-		,"inner"=>" inner join Plazas on Guardias.id_plazas = Plazas.id "
+		//,"inner"=>" inner join Plazas on Guardias.id_plazas = Plazas.id "
 		,"fields"=>array(
 			 "Guardias.id as id"
 			,"title as id_plazas" 

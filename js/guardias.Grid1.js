@@ -95,7 +95,14 @@ guardias.Grid1 = Ext.extend(Ext.grid.EditorGridPanel, {
 							,{name:'id_plazas',type:'string'}
 				   			,{name:'hora_ini'}
 							,{name:'hora_fin'}
-				   			,{name:'activo',type:'int'}
+				   			,{name:'activo',type:'boolean'}
+							,{name:'lunes',type:'boolean'}
+							,{name:'martes',type:'boolean'}
+							,{name:'miercoles',type:'boolean'}
+							,{name:'jueves',type:'boolean'}
+							,{name:'viernes',type:'boolean'}
+							,{name:'sabado',type:'boolean'}
+							,{name:'domingo',type:'boolean'}
 			          
 				   
 				]
@@ -172,10 +179,81 @@ guardias.Grid1 = Ext.extend(Ext.grid.EditorGridPanel, {
 				,dataIndex:'activo'
 				,width:160
 				,sortable:true
-				,editor:new Ext.form.TextField({
+				,editor:new Ext.form.Checkbox({
+                                    inputValue:'Activo'
 					
 				})
-			}, this.rowActions]
+			},{
+				 header:'Disponible'
+				//,id:'id-telefonos'
+				,dataIndex:'hidden'
+				,width:160
+				,sortable:true
+				,editor:new Ext.form.Checkbox({
+                                    inputValue:'Activo'
+					
+				})
+			}, {
+				 header:'Disponible'
+				//,id:'id-telefonos'
+				,dataIndex:'hidden'
+				,width:160
+				,sortable:true
+				,editor:new Ext.form.Checkbox({
+                                    inputValue:'Activo'
+					
+				})
+			}, {
+				 header:'Disponible'
+				//,id:'id-telefonos'
+				,dataIndex:'hidden'
+				,width:160
+				,sortable:true
+				,editor:new Ext.form.Checkbox({
+                                    inputValue:'Activo'
+					
+				})
+			}, {
+				 header:'Disponible'
+				//,id:'id-telefonos'
+				,dataIndex:'hidden'
+				,width:160
+				,sortable:true
+				,editor:new Ext.form.Checkbox({
+                                    inputValue:'Activo'
+					
+				})
+			}, {
+				 header:'Disponible'
+				//,id:'id-telefonos'
+				,dataIndex:'hidden'
+				,width:160
+				,sortable:true
+				,editor:new Ext.form.Checkbox({
+                                    inputValue:'Activo'
+					
+				})
+			}, {
+				 header:'Disponible'
+				//,id:'id-telefonos'
+				,dataIndex:'hidden'
+				,width:160
+				,sortable:true
+				,editor:new Ext.form.Checkbox({
+                                    inputValue:'Activo'
+					
+				})
+			}, {
+				 header:'Disponible'
+				//,id:'id-telefonos'
+				,dataIndex:'hidden'
+				,width:160
+				,sortable:true
+				,editor:new Ext.form.Checkbox({
+                                    inputValue:'Activo'
+					
+				})
+			},  this.rowActions]
 			// }}}
 			,plugins:[new Ext.ux.grid.Search({
 				 iconCls:'icon-zoom'

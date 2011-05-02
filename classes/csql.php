@@ -244,7 +244,18 @@ class csql {
 		return $ostmt->fetchAll(PDO::FETCH_OBJ);
 
 	} // eo function getData
+
 	// }}}
+	// {{{
+   
+	// }}}
+
+
+
+
+
+
+
 	// {{{
 	/**
 	  * insertRecord: inserts record to table

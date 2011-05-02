@@ -145,7 +145,17 @@ Ext.ensible.cal.EventRecord.reconfigure();
 			               ,handler:function(){winGuardias.show();
 				       //  Ext.getCmp('guardiasgrid3').getStore().load({params:{start:0,limit:50}});
 					// Ext.getCmp('guardiasgrid3').reconfigure();
-				       }
+				      }
+				       
+            			},{
+					        text:'Generar'
+						   ,tooltip:'Generar Horario'
+						   ,iconCls:'icon-plus'
+			               ,handler:function(){winGenerar.show();
+				       //  Ext.getCmp('guardiasgrid3').getStore().load({params:{start:0,limit:50}});
+					// Ext.getCmp('guardiasgrid3').reconfigure();
+				      }
+				       
             			}]
 		    
 		    }]

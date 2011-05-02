@@ -162,3 +162,113 @@
 //	win2.show();
 
 /////////////////////////////////////////////////// FIN WIN PLAZAS 2 ////////////////////////////////////////////////	
+
+Ext.apply(Ext.form.VTypes, {
+	daterange : function(val, field) {
+	    
+		var date = field.parseDate(val);
+
+		if(!date){
+			return;
+		}
+		if (field.startDateField && (!this.dateRangeMax || (date.getTime() != this.dateRangeMax.getTime()))) {
+			var start = Ext.getCmp(field.startDateField);
+			start.setMaxValue(date);
+			start.validate();
+			this.dateRangeMax = date;
+		} 
+		else if (field.endDateField && (!this.dateRangeMin || (date.getTime() != this.dateRangeMin.getTime()))) {
+			var end = Ext.getCmp(field.endDateField);
+			end.setMinValue(date);
+			end.validate();
+			this.dateRangeMin = date;
+		}
+		/*
+		 * Always return true since we're only using this vtype to set the
+		 * min/max allowed values (these are tested for after the vtype test)
+		 */
+		return true;
+	}
+});
+// Add the additional 'advanced' VTypes -- [End]
+
+
+var fromdate = new Ext.form.DateField({
+			format: 'd/M/Y', //YYYY-MMM-Dd
+			renderer: Ext.util.Format.dateRenderer('d/M/Y'),
+			fieldLabel: 'Desde',
+			id: 'startdt',
+			name: 'startdt',
+			width:140,
+			allowBlank:false,
+			vtype: 'daterange',
+                        endDateField: 'enddt',// id of the 'To' date field
+			// listeners
+	listeners:{
+		// sets raw value to concatenated last and first names
+		 select:function(f,v) {
+                        var hdate = new Date(v);
+			var fdate = new Date(v);
+			if (hdate.getDay(v) == 0){
+			    dato1 = 6;
+			}else{
+			    dato1 = hdate.getDay(v)-1;
+			}
+			if (hdate.getDay(v) == 0){
+			    dato2 = 0;
+			}else{
+			    dato2 = 7-hdate.getDay(v);
+			}
+		        hdate.setDate(hdate.getDate(v)-(dato1));
+			fdate.setDate(fdate.getDate(v)+(dato2));
+			this.setValue(hdate);
+			Ext.getCmp('enddt').setValue(fdate);
+                       
+                      
+                        
+		}
+	}	       
+		});
+		
+		var todate = new Ext.form.DateField({
+			format: 'd/M/Y', //YYYY-MMM-DD
+			renderer: Ext.util.Format.dateRenderer('d/M/Y'),
+			fieldLabel: 'Hasta',
+			id: 'enddt',
+			name: 'enddt',
+			width:140,
+			allowBlank:false,
+			vtype: 'daterange',
+            startDateField: 'startdt'// id of the 'From' date field
+		});
+
+
+var name = new Ext.form.TextField({
+	fieldLabel:'Name',
+	name:'txt-name',
+	emptyText:'Your name...',
+	id:"id-name"
+}); 
+
+
+
+//creamos un formulario
+this.form= new Ext.FormPanel({
+	border:false,
+	defaults:{xtype:'textfield'},	//componente por default del formulario
+	items:[
+		name, // le asignamos la instancia que creamos anteriormente
+		fromdate,
+		todate
+	]
+});
+
+var winGenerar = new Ext.Window({
+	title: 'Generar Horario',
+	width:350,
+	height:200,
+	bodyStyle:'background-color:#fff;padding: 10px',
+	items:this.form,
+	buttonAlign: 'right', //botones alineados a la derecha
+	buttons:[{text:'Generar'},{text:'Cancel'}] //botones del formulario
+});

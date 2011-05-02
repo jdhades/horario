@@ -7,7 +7,7 @@ if(!isset($_REQUEST["cmd"])) {
 	return;
 }
 
-$objects = array(
+$objectsPlazas = array(
 	// {{{
 	// company
 	
@@ -24,55 +24,60 @@ $objects = array(
 			
 		)
 	)
-	
+	);
+
+$objectsVendedor = array(
+
+	"Vendedor"=>array(
+		"table"=>"Plazas"
+		,"idName"=>"id"
+		,"fields"=>array(
+			 "id"
+			,"title"
+			,"descrip"
+			,"color"
+			,"hidden"
+			
+			
+		)
+	)
 
 	);
 
-	/*,"company"=>array(
-		 "table"=>"company"
-		,"idName"=>"compID"
+$objectsGuardias = array(
+	
+	
+	"Guardias"=>array(
+		"table"=>"Guardias"  
+		,"idName"=>"id"
+		//,"inner"=>" inner join Plazas on Guardias.id_plazas = Plazas.id "
 		,"fields"=>array(
-			 "compID"
-			,"company"
-			,"price"
-			,"change"b
-			,"qtip1"
-			,"action2"
-			,"qtip2"
-			,"action3"
-			,"qtip3"
-			,"note"
-		)
+			 "Guardias.id as id"
+			,"title as id_plazas" 
+			,"Guardias.descrip as descrip"
+			,"hora_ini"
+			,"hora_fin"
+			,"activo"
+	 	)
 	)
-	,"person"=>array(
-		"table"=>"person left join phone on person.persID=phone.persID"
-		,"idName"=>"persID"
-		,"groupBy"=>"person.persID"
-		,"fields"=>array(
-			  "person.persID"
-			 ,"persFirstName"
-			 ,"persMidName"
-			 ,"persLastName"
-			 ,"persNote"
-			 ,"group_concat(concat_ws('~',phoneType,phoneNumber),'|') as phones"
-		)
-	)
-	,"person2"=>array(
-		"table"=>"person2"
-		,"idName"=>"person2.persID"
-		,"fields"=>array(
-			  "persID"
-			 ,"persFirstName"
-			 ,"persMidName"
-			 ,"persLastName"
-		)
-	)
-	// }}}
-);*/
+);
+
 
 // create PDO object and execute command
 $osql = new csql();
 $_REQUEST["cmd"]($osql);
+
+
+
+function generar(){
+ 	global $objectsPlazas, $objectsVendedor, $objectGuardias;
+	$response = getData($osql,$objectsVendedor);
+	vardump ($response);	
+}
+
+
+
+
 
 // command processors
 // {{{
@@ -83,9 +88,14 @@ $_REQUEST["cmd"]($osql);
   * @date      31. March 2008
   * @return    void
   * @param     PDO $osql
+  *
   */
-function getData($osql) {
-	global $objects;
+
+
+
+
+function getData($osql,$objects) {
+	
 	
 	$params = $objects[$_REQUEST["objName"]];
 	
@@ -100,11 +110,11 @@ function getData($osql) {
 	$params["start"] = $params["start"] ? $params["start"] : 0;
 
 	$response = array(
-		 "success"=>true
 		,"total"=>$osql->getCount($params)
 		,"data"=>$osql->getData($params)
 	);
-	$osql->output($response);
+	
+	return($response);
 
 } // eo function getData
 // }}}

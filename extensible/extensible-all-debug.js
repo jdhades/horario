@@ -4561,7 +4561,7 @@ this.combo1 = new Ext.form.ComboBox({
 	,typeAhead: true
         ,selectOnFocus: true
         ,itemSelector:'div.x-combo-list-item'
-        
+        ,editable:false
 	
 	// store getting items from server
 	,store:new Ext.data.JsonStore({
@@ -4681,8 +4681,8 @@ this.comboGuardia = new Ext.form.ComboBox({
 	,allowBlank:false
 
 	// store getting items from server
-	,allowBlank:false
-        ,emptyText: 'Selecciona La Guardia'
+	,editalble:false
+	,emptyText: 'Selecciona La Guardia'
 	,typeAhead: true
         ,selectOnFocus: true
         ,itemSelector:'div.x-combo-list-item'
