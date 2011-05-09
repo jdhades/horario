@@ -1,3 +1,5 @@
+Ext.ns('ventanas'); 
+ 
      winPlazas = new Ext.Window({
          title: 'Plazas'
 	,id:'winPlazas'
@@ -77,7 +79,7 @@
   winGuardias = new Ext.Window({
          title: 'Guardias'
 	    ,id:'winGuardias'
-        ,width:640
+        ,width:720
         ,height:480
 	// ,maximized:true
 		,border:false
@@ -255,9 +257,10 @@ var name = new Ext.form.TextField({
 //creamos un formulario
 this.form= new Ext.FormPanel({
 	border:false,
+	id:'formGenerar',
+	url:'php/generador.php',
 	defaults:{xtype:'textfield'},	//componente por default del formulario
 	items:[
-		name, // le asignamos la instancia que creamos anteriormente
 		fromdate,
 		todate
 	]
@@ -265,33 +268,47 @@ this.form= new Ext.FormPanel({
 
 var winGenerar = new Ext.Window({
 	title: 'Generar Horario',
+	id:'winGenerar',
+	modal:true,
 	width:350,
 	height:200,
 	bodyStyle:'background-color:#fff;padding: 10px',
 	items:this.form,
 	buttonAlign: 'right', //botones alineados a la derecha
-	buttons:[{text:'Generar',id:'salvar',
-	         handler:function(){
-					 Ext.get('salvar').on('click', function(){
-   					 	Ext.MessageBox.show({
-       					msg: 'Saving your data, please wait...',
-      					progressText: 'Saving...',
-  					    width:300,
-       					wait:true,
-       					waitConfig: {interval:200},
-      				 	icon:'ext-mb-download', 
-    			        animEl: 'buttonID'
-  					 });
-    setTimeout(function(){
-        //This simulates a long-running operation like a database save or XHR call.
-        //In real code, this would be in a callback function.
-        Ext.MessageBox.hide();
-        Ext.example.msg('Done', 'Your fake data was saved!');
-    }, 8000);
+	buttons: [{text:'Generar',handler:this.sendData,scope:this},{text:'Cancelar'}] //botones del formulario
 });
 
- 
-					  }
-				  }  
-	,{text:'Cancel'}] //botones del formulario
-});
+function sendData(){
+		//submit the form
+		var mask = new Ext.LoadMask(Ext.get('winGenerar'), {msg:'Generando, por favor espere...'});
+		mask.show();
+		this.form.getForm('formGenerar').submit({
+			method: 'POST',
+			params: {
+				cmd:'generar'
+				
+				},
+			success: function(form,action){
+				mask.hide();
+				Ext.Msg.alert('Correcto',action.result.msg);
+				winGenerar.hide();
+			},
+			failure: function(form,action){
+				mask.hide();
+				switch (action.failureType) {
+					  case Ext.form.Action.CLIENT_INVALID:
+						 Ext.Msg.alert('Falla', 'Informacion de las fechas invalidad');
+						 break;
+					  case Ext.form.Action.CONNECT_FAILURE:
+						 Ext.Msg.alert('Failure', 'No hay respuesta ajax');
+						 break;
+					  case Ext.form.Action.SERVER_INVALID:
+						Ext.Msg.alert('Failure', action.result.msg);
+						break;
+					  default:
+						Ext.Msg.alert('Failure',action.result.msg);
+				  }
+			}
+		});
+
+	};	

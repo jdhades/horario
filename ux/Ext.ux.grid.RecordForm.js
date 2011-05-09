@@ -139,7 +139,7 @@ Ext.extend(Ext.ux.grid.RecordForm, Ext.util.Observable, {
 	 */
 	,mapping:{
 		 'auto':'textfield'
-		,'boolean':'checkbox'
+		,'boolean':'xcheckbox'
 		,'date':'datefield'
 		,'float':'numberfield'
 		,'int':'numberfield'
@@ -356,7 +356,9 @@ Ext.extend(Ext.ux.grid.RecordForm, Ext.util.Observable, {
 //				o.grow = false;
 //				o.autoHeight = true;
 			}
-
+                        if('checkbox' === o.xtype){
+				o.checked = true;
+			}
 			// add field to a column on left-to-right top-to-bottom basis
 			this.form.items[0].items[colIndex++].items.push(o);
 			colIndex = colIndex === this.columnCount ? 0 : colIndex;

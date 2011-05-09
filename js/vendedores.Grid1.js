@@ -147,9 +147,7 @@ vendedores.Grid1 = Ext.extend(Ext.grid.EditorGridPanel, {
 			// }}}
 			,plugins:[new Ext.ux.grid.Search({
 				 iconCls:'icon-zoom'
-				//,readonlyIndexes:['note']
-				//,disableIndexes:['pctChange']
-			}), this.rowActions, this.recordForm]
+				}), this.rowActions, this.recordForm]
 			,viewConfig:{forceFit:true}
 			,buttons:[{
 				 text:'Guardar'

@@ -173,7 +173,8 @@ Ext.ensible.cal.EventRecord.reconfigure();
                     items: [{
                         id:'app-west',
                         region: 'west',
-                        width: 176,
+			autoScroll:true,
+                        width: 196,
                         border: false,
                         items: [{
                             xtype: 'datepicker',
@@ -190,7 +191,7 @@ Ext.ensible.cal.EventRecord.reconfigure();
                         },{
                             xtype: 'extensible.calendarlist',
                             id:'app-calendarlist',
-							store: calendarStore,
+			    store: calendarStore,
                             border: false,
                             width: 175
                         }]

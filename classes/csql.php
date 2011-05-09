@@ -112,7 +112,7 @@ class csql {
 				
 				$dsn = 'mysql:dbname=prueba;host=localhost';
 				$user = 'root';
-				$password = 'pantera';
+				$password = '';
 
 				try {
 				   $odb = new PDO($dsn, $user, $password);
@@ -193,7 +193,9 @@ class csql {
 		$ostmt->execute();
 		$ostmt->fetch();
 		return (int) $count;
-	} // eo function getCount
+	}
+	
+	// eo function getCount
 	// }}}
 	// {{{
 	/**
@@ -215,12 +217,6 @@ class csql {
 	public function getData($params) {
 		// params to variables
 		extract($params);
-//if ($idName == 'fcontadores')
-//{echo "<PRE>";
-//	print_r($params);
-//	echo "</PRE>";
-//}
-//var_dump($params["query"]);
 		$sql  = "select ";
 		$sql .= implode(",", $fields);
 		$sql .= " from $table ";

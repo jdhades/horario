@@ -95,7 +95,7 @@ guardias.Grid1 = Ext.extend(Ext.grid.EditorGridPanel, {
 							,{name:'id_plazas',type:'string'}
 				   			,{name:'hora_ini'}
 							,{name:'hora_fin'}
-				   			,{name:'activo',type:'boolean'}
+				   			,{name:'activo',type:'boolean',checked:true}
 							,{name:'lunes',type:'boolean'}
 							,{name:'martes',type:'boolean'}
 							,{name:'miercoles',type:'boolean'}
@@ -179,79 +179,79 @@ guardias.Grid1 = Ext.extend(Ext.grid.EditorGridPanel, {
 				,dataIndex:'activo'
 				,width:160
 				,sortable:true
-				,editor:new Ext.form.Checkbox({
+				,editor:{
+				    xtype:'checkbox'
+				    ,checked:true
+				}
+			}, {
+				 header:'Lunes'
+				//,id:'id-telefonos'
+				,dataIndex:'lunes'
+				,width:160
+				,sortable:true
+				,editor:new Ext.ux.form.XCheckbox({
                                     inputValue:'Activo'
-					
+				    ,checked:true	
+				})
+			}, {
+				 header:'Martes'
+				//,id:'id-telefonos'
+				,dataIndex:'martes'
+				,width:160
+				,sortable:true
+				,editor:new Ext.ux.form.XCheckbox({
+                                    inputValue:'Activo'
+				    ,checked:true	
+				})
+			}, {
+				 header:'Miercoles'
+				//,id:'id-telefonos'
+				,dataIndex:'miercoles'
+				,width:160
+				,sortable:true
+				,editor:new Ext.ux.form.XCheckbox({
+                                    inputValue:'Activo'
+					,checked:true
+				})
+			}, {
+				 header:'Jueves'
+				//,id:'id-telefonos'
+				,dataIndex:'jueves'
+				,width:160
+				,sortable:true
+				,editor:new Ext.ux.form.XCheckbox({
+                                    inputValue:'Activo'
+					,checked:true
+				})
+			}, {
+				 header:'Viernes'
+				//,id:'id-telefonos'
+				,dataIndex:'viernes'
+				,width:160
+				,sortable:true
+				,editor:new Ext.ux.form.XCheckbox({
+                                    inputValue:'Activo'
+					,checked:true
+				})
+			}, {
+				 header:'Sabado'
+				//,id:'id-telefonos'
+				,dataIndex:'sabado'
+				,width:160
+				,sortable:true
+				,editor:new Ext.ux.form.XCheckbox({
+                                    inputValue:'Activo'
+					,checked:true
 				})
 			},{
-				 header:'Disponible'
+				 header:'Domingo'
 				//,id:'id-telefonos'
-				,dataIndex:'hidden'
+				,dataIndex:'domingo'
 				,width:160
 				,sortable:true
-				,editor:new Ext.form.Checkbox({
+				,editor:new Ext.ux.form.XCheckbox({
                                     inputValue:'Activo'
-					
-				})
-			}, {
-				 header:'Disponible'
-				//,id:'id-telefonos'
-				,dataIndex:'hidden'
-				,width:160
-				,sortable:true
-				,editor:new Ext.form.Checkbox({
-                                    inputValue:'Activo'
-					
-				})
-			}, {
-				 header:'Disponible'
-				//,id:'id-telefonos'
-				,dataIndex:'hidden'
-				,width:160
-				,sortable:true
-				,editor:new Ext.form.Checkbox({
-                                    inputValue:'Activo'
-					
-				})
-			}, {
-				 header:'Disponible'
-				//,id:'id-telefonos'
-				,dataIndex:'hidden'
-				,width:160
-				,sortable:true
-				,editor:new Ext.form.Checkbox({
-                                    inputValue:'Activo'
-					
-				})
-			}, {
-				 header:'Disponible'
-				//,id:'id-telefonos'
-				,dataIndex:'hidden'
-				,width:160
-				,sortable:true
-				,editor:new Ext.form.Checkbox({
-                                    inputValue:'Activo'
-					
-				})
-			}, {
-				 header:'Disponible'
-				//,id:'id-telefonos'
-				,dataIndex:'hidden'
-				,width:160
-				,sortable:true
-				,editor:new Ext.form.Checkbox({
-                                    inputValue:'Activo'
-					
-				})
-			}, {
-				 header:'Disponible'
-				//,id:'id-telefonos'
-				,dataIndex:'hidden'
-				,width:160
-				,sortable:true
-				,editor:new Ext.form.Checkbox({
-                                    inputValue:'Activo'
-					
+					,checked:true
 				})
 			},  this.rowActions]
 			// }}}
@@ -283,7 +283,7 @@ guardias.Grid1 = Ext.extend(Ext.grid.EditorGridPanel, {
 				,scope:this
 				,handler:function(){winGuardias.hide();	this.store.load({params:{start:0,limit:10}});}
 			}]
-			,tbar:[/*{
+			,tbar:[{
 				 text:'Agregar-GRID'
 				,tooltip:'Agregar un registro al grid'
 				,iconCls:'icon-plus'
@@ -291,7 +291,7 @@ guardias.Grid1 = Ext.extend(Ext.grid.EditorGridPanel, {
 				,listeners:{
 					click:{scope:this, fn:this.addRecord,buffer:200}
 				}
-			},*/{
+			},{
 				 text:'Agregar'
 				,tooltip:'Agregar un registro con una forma'
 				,iconCls:'icon-form-add'

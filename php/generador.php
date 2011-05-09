@@ -27,16 +27,17 @@ $objectsPlazas = array(
 	);
 
 $objectsVendedor = array(
-
-	"Vendedor"=>array(
-		"table"=>"Plazas"
+	"Vendedores"=>array(
+		"table"=>"Vendedores"
 		,"idName"=>"id"
 		,"fields"=>array(
 			 "id"
-			,"title"
-			,"descrip"
-			,"color"
-			,"hidden"
+			,"codigo"
+			,"nombre"
+			,"apellido"
+			,"direccion"
+			,"telefono"
+			,"email"
 			
 			
 		)
@@ -69,10 +70,12 @@ $_REQUEST["cmd"]($osql);
 
 
 
-function generar(){
- 	global $objectsPlazas, $objectsVendedor, $objectGuardias;
-	$response = getData($osql,$objectsVendedor);
-	vardump ($response);	
+function generar($osql){
+ 	
+	global $objectsPlazas, $objectsVendedor, $objectGuardias;
+	$objName = $objectsVendedor["Vendedores"]["table"];
+	$vendedores = getData($osql,$objectsVendedor,$objName);
+	var_dump($vendedores["data"][0]->codigo);
 }
 
 
@@ -94,11 +97,9 @@ function generar(){
 
 
 
-function getData($osql,$objects) {
+function getData($osql,$allObjects,$key) {
 	
-	
-	$params = $objects[$_REQUEST["objName"]];
-	
+	$params = $allObjects["$key"];
 	$params["start"] = isset($_REQUEST["start"]) ? $_REQUEST["start"] : null;
 	$params["limit"] = isset($_REQUEST["limit"]) ? $_REQUEST["limit"] : null;
 	$params["search"] = isset($_REQUEST["fields"]) ? json_decode($_REQUEST["fields"]) : null;
@@ -108,9 +109,10 @@ function getData($osql,$objects) {
 
 	// next line necessary for Ext 3 as it doesn't send start currently (27. April 2009)
 	$params["start"] = $params["start"] ? $params["start"] : 0;
-
+ //var_dump($params);
 	$response = array(
-		,"total"=>$osql->getCount($params)
+		
+		"total"=>$osql->getCount($params)
 		,"data"=>$osql->getData($params)
 	);
 	

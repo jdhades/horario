@@ -29,47 +29,7 @@ $objects = array(
 	
 	
 	);
-	/*,"company"=>array(
-		 "table"=>"company"
-		,"idName"=>"compID"
-		,"fields"=>array(
-			 "compID"
-			,"company"
-			,"price"
-			,"change"b
-			,"qtip1"
-			,"action2"
-			,"qtip2"
-			,"action3"
-			,"qtip3"
-			,"note"
-		)
-	)
-	,"person"=>array(
-		"table"=>"person left join phone on person.persID=phone.persID"
-		,"idName"=>"persID"
-		,"groupBy"=>"person.persID"
-		,"fields"=>array(
-			  "person.persID"
-			 ,"persFirstName"
-			 ,"persMidName"
-			 ,"persLastName"
-			 ,"persNote"
-			 ,"group_concat(concat_ws('~',phoneType,phoneNumber),'|') as phones"
-		)
-	)
-	,"person2"=>array(
-		"table"=>"person2"
-		,"idName"=>"person2.persID"
-		,"fields"=>array(
-			  "persID"
-			 ,"persFirstName"
-			 ,"persMidName"
-			 ,"persLastName"
-		)
-	)
-	// }}}
-);*/
+	
 
 // create PDO object and execute command
 $osql = new csql();
@@ -87,6 +47,7 @@ $_REQUEST["cmd"]($osql);
   */
 function getData($osql) {
 	global $objects;
+	
 	
 	$params = $objects[$_REQUEST["objName"]];
 	
